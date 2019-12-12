@@ -28,13 +28,37 @@ class _RegisterPageState extends State<RegisterPage> {
                   height: 50,
                   decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.all(Radius.circular(10))
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                    Text("Login",style: TextStyle(color: Colors.black, fontSize: 20),)
+                    Text("Login",style: TextStyle(color: Colors.black, fontSize: 22, fontWeight: FontWeight.bold),)
                   ],),
+                ),
+              ),
+            ),
+            Positioned(
+              bottom: 70,
+              right: 80,
+              left: 80,
+              child: InkWell(
+                onTap: (){
+                  Navigator.pop(context);
+                },
+                child: Container(
+                  height: 50,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                      boxShadow: [
+                        BoxShadow(
+                            color: Color(0xFF386B4F),
+                            offset: Offset(0.0,25.0),
+                            blurRadius: 5
+                        )
+                      ]
+                  ),
                 ),
               ),
             ),
@@ -53,10 +77,12 @@ class _RegisterPageState extends State<RegisterPage> {
                     height: MediaQuery.of(context).size.height * 0.67,
                     width: MediaQuery.of(context).size.width * 0.8,
                     decoration: BoxDecoration(
-                        color: Color(0xFF1A1A1A),
+                        color: Color(0xFF353A50),
                         borderRadius: BorderRadius.all(
                           Radius.circular(10),
-                        )),
+
+                        ),
+                    ),
                     child: Column(
                       children: <Widget>[
                         Padding(
@@ -73,7 +99,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               border: InputBorder.none,
                               hintText: "Full Name",
                               filled: true,
-                              fillColor: Color(0xFF484848),
+                              fillColor: Color(0xFF5F6273),
                             ),
                           ),
                         ),
@@ -85,7 +111,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               border: InputBorder.none,
                               hintText: "Phone",
                               filled: true,
-                              fillColor: Color(0xFF484848),
+                              fillColor: Color(0xFF5F6273),
                             ),
                           ),
                         ),
@@ -97,7 +123,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               border: InputBorder.none,
                               hintText: "Username",
                               filled: true,
-                              fillColor: Color(0xFF484848),
+                              fillColor: Color(0xFF5F6273),
                             ),
                           ),
                         ),
@@ -109,7 +135,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               border: InputBorder.none,
                               hintText: "Email Address",
                               filled: true,
-                              fillColor: Color(0xFF484848),
+                              fillColor: Color(0xFF5F6273),
                             ),
                           ),
                         ),
@@ -121,7 +147,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               border: InputBorder.none,
                               hintText: "Password",
                               filled: true,
-                              fillColor: Color(0xFF484848),
+                              fillColor: Color(0xFF5F6273),
                             ),
                           ),
                         ),
@@ -133,7 +159,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               border: InputBorder.none,
                               hintText: "Re-type Password",
                               filled: true,
-                              fillColor: Color(0xFF484848),
+                              fillColor: Color(0xFF5F6273),
                             ),
                           ),
                         ),
@@ -148,10 +174,13 @@ class _RegisterPageState extends State<RegisterPage> {
                         SizedBox(
                           height: 10,
                         ),
-                        Row(
-                          children: <Widget>[
-                            Text("Forgot Password?")
-                          ],
+                        InkWell(
+                          onTap: ()=> Navigator.of(context).pushNamed("forget"),
+                          child: Row(
+                            children: <Widget>[
+                              Text("Forgot Password?")
+                            ],
+                          ),
                         )
                       ],
                     ),

@@ -1,16 +1,16 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:life_style_hub/values/values.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+import 'package:life_style_hub/values/values.dart';
 import 'package:life_style_hub/widgets/logo_widget.dart';
 import 'package:life_style_hub/widgets/social_media_icon.dart';
 
-class LoginPage extends StatefulWidget {
+
+class ForgetPasswordPage extends StatefulWidget {
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _ForgetPasswordPageState createState() => _ForgetPasswordPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,23 +26,28 @@ class _LoginPageState extends State<LoginPage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Logo(),
-                customTextFormField("Username", MaterialCommunityIcons.account),
-                customTextFormField("Password", MaterialCommunityIcons.lock, hideText: true),
-                InkWell(
-                  onTap: (){
-                    Navigator.of(context).pushNamed("forget");
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 30),
-                    child: Text("Forget Your Password?"),
+                customTextFormField("email address", MaterialCommunityIcons.account),
+                Padding(
+                  padding: const EdgeInsets.only( top: 40),
+                  child: MaterialButton(
+                    onPressed: () {},
+                    child: Text("SUBMIT"),
+                    minWidth: double.infinity,
+                    height: 45,
+                    color: accentColor,
                   ),
                 ),
+                SizedBox(
+                  height: 25,
+                ),
                 MaterialButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).pushNamed('register');
+                  },
                   child: Text("LOGIN"),
                   minWidth: double.infinity,
                   height: 45,
-                  color: accentColor,
+                  color: Color(0xFFADADAD),
                 ),
                 SizedBox(
                   height: 8,
@@ -71,6 +76,7 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
+
   }
 
   Padding optionalDivider() {
@@ -88,14 +94,13 @@ class _LoginPageState extends State<LoginPage> {
             height: 50,
             width: 50,
             decoration:
-                BoxDecoration(shape: BoxShape.circle, color: backgroundColor),
+            BoxDecoration(shape: BoxShape.circle, color: backgroundColor),
             child: Center(child: Text("Or")),
           )
         ],
       ),
     );
   }
-
   Padding customTextFormField(String hint, IconData icon, {bool hideText=false}) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5),
@@ -103,7 +108,7 @@ class _LoginPageState extends State<LoginPage> {
         obscureText: hideText,
         decoration: InputDecoration(
             border: InputBorder.none,
-            fillColor: inputBackgroundColor,
+            fillColor: Color(0xFF1D202F),
             filled: true,
             prefixIcon: Icon(icon),
             hintText: hint),
@@ -111,7 +116,3 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 }
-
-
-
-
