@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:life_style_hub/theme/colors.dart';
+import 'package:life_style_hub/values/values.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:life_style_hub/widgets/logo_widget.dart';
 import 'package:life_style_hub/widgets/social_media_icon.dart';

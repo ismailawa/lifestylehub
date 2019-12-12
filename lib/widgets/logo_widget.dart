@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:life_style_hub/theme/colors.dart';
+import 'package:life_style_hub/values/values.dart';
 
 class Logo extends StatelessWidget {
   const Logo({
