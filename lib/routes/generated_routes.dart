@@ -17,6 +17,8 @@ class RouteGenerator{
         return MaterialPageRoute(builder:(_)=> RegisterPage());
       case 'forget':
         return MaterialPageRoute(builder:(_)=> ForgetPasswordPage());
+      case 'landing-page':
+        return MaterialPageRoute(builder:(_)=> LandingPage());
       default:
         return MaterialPageRoute(builder:(_)=> LandingPage());
     }

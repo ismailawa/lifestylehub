@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:life_style_hub/values/values.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:life_style_hub/widgets/logo_widget.dart';
@@ -13,12 +14,14 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
+    ScreenUtil.instance =
+    ScreenUtil(width: 750, height: 1334, allowFontScaling: true)..init(context);
     return Scaffold(
       backgroundColor: backgroundColor,
       body: SingleChildScrollView(
         child: Container(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
+          width: ScreenUtil.mediaQueryData.size.width,
+          height: ScreenUtil.mediaQueryData.size.height,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 40),
             child: Column(
@@ -38,7 +41,9 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 MaterialButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).pushNamed("landing-page");
+                  },
                   child: Text("LOGIN"),
                   minWidth: double.infinity,
                   height: 45,

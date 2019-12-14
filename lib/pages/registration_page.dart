@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:life_style_hub/values/values.dart';
 import 'package:life_style_hub/widgets/logo_widget.dart';
 
@@ -11,21 +12,23 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
+    ScreenUtil.instance =
+        ScreenUtil(width: 750, height: 1334, allowFontScaling: true)..init(context);
     return Scaffold(
       backgroundColor: backgroundColor,
       body: SingleChildScrollView(
         child: Stack(
           children: <Widget>[
             Positioned(
-              bottom: 15,
-              right: 60,
-              left: 60,
+              bottom: ScreenUtil.mediaQueryData.size.height*0.025,
+              right: ScreenUtil.getInstance().setWidth(100),
+              left: ScreenUtil.getInstance().setWidth(100),
               child: InkWell(
                 onTap: (){
                   Navigator.pop(context);
                 },
                 child: Container(
-                  height: 50,
+                  height: ScreenUtil.mediaQueryData.size.height*0.08,
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -39,17 +42,17 @@ class _RegisterPageState extends State<RegisterPage> {
               ),
             ),
             Positioned(
-              bottom: 70,
-              right: 80,
-              left: 80,
+              bottom: ScreenUtil.mediaQueryData.size.height*0.1,
+              right: ScreenUtil.getInstance().setWidth(140),
+              left: ScreenUtil.getInstance().setWidth(140),
               child: InkWell(
                 onTap: (){
                   Navigator.pop(context);
                 },
                 child: Container(
-                  height: 50,
+                  height: ScreenUtil.getInstance().setHeight(135),
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: Colors.transparent,
                     borderRadius: BorderRadius.all(Radius.circular(10)),
                       boxShadow: [
                         BoxShadow(
@@ -63,19 +66,19 @@ class _RegisterPageState extends State<RegisterPage> {
               ),
             ),
             Container(
-              width: double.infinity,
-              height: MediaQuery.of(context).size.height,
+              width: ScreenUtil.mediaQueryData.size.width,
+              height: ScreenUtil.mediaQueryData.size.height,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   SizedBox(
-                    height: 30,
+                    height: ScreenUtil.getInstance().setHeight(60),
                   ),
                   Logo(),
                   Container(
                     padding: EdgeInsets.all(15),
-                    height: MediaQuery.of(context).size.height * 0.67,
-                    width: MediaQuery.of(context).size.width * 0.8,
+                    height: ScreenUtil.mediaQueryData.size.height * 0.68,
+                    width: ScreenUtil.mediaQueryData.size.width * 0.8,
                     decoration: BoxDecoration(
                         color: Color(0xFF353A50),
                         borderRadius: BorderRadius.all(
@@ -96,6 +99,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           padding: const EdgeInsets.only(bottom: 10),
                           child: TextFormField(
                             decoration: InputDecoration(
+                              isDense: true,
                               border: InputBorder.none,
                               hintText: "Full Name",
                               filled: true,
@@ -163,7 +167,9 @@ class _RegisterPageState extends State<RegisterPage> {
                             ),
                           ),
                         ),
-                        SizedBox(height: 15,),
+                        Expanded(
+                          child: Container()
+                        ),
                         MaterialButton(
                           onPressed: () {},
                           color: accentColor,
@@ -172,7 +178,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           height: 50,
                         ),
                         SizedBox(
-                          height: 10,
+                          height: ScreenUtil.getInstance().setHeight(20),
                         ),
                         InkWell(
                           onTap: ()=> Navigator.of(context).pushNamed("forget"),
