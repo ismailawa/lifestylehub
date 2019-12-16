@@ -1,9 +1,13 @@
-
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:life_style_hub/models/category.dart';
 
 class CategoryCard extends StatelessWidget {
+  final Category category;
+
   const CategoryCard({
     Key key,
+    this.category,
   }) : super(key: key);
 
   @override
@@ -17,13 +21,16 @@ class CategoryCard extends StatelessWidget {
             height: 150,
             width: 150,
             decoration: BoxDecoration(
-                color: Colors.white, borderRadius: BorderRadius.circular(10)),
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10),
+              image: DecorationImage(image: ExactAssetImage(category.imageUrl), fit: BoxFit.cover),
+            ),
           ),
         ),
         Padding(
           padding: const EdgeInsets.only(left: 12, top: 10),
           child: Text(
-            "Leadership",
+            category.name,
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
           ),
         ),
@@ -31,9 +38,10 @@ class CategoryCard extends StatelessWidget {
           padding: const EdgeInsets.only(left: 12),
           child: Row(
             children: <Widget>[
-              Text("5 trainers,",
+              Text("${category.trainers} trainers,",
                   style: TextStyle(fontStyle: FontStyle.italic)),
-              Text("50 lessons", style: TextStyle(fontStyle: FontStyle.italic))
+              Text("${category.lessons} lessons",
+                  style: TextStyle(fontStyle: FontStyle.italic))
             ],
           ),
         )
@@ -41,4 +49,3 @@ class CategoryCard extends StatelessWidget {
     );
   }
 }
-
