@@ -20,7 +20,7 @@ class _RegisterPageState extends State<RegisterPage> {
         child: Stack(
           children: <Widget>[
             Positioned(
-              bottom: ScreenUtil.mediaQueryData.size.height*0.025,
+              bottom: 29,
               right: ScreenUtil.getInstance().setWidth(100),
               left: ScreenUtil.getInstance().setWidth(100),
               child: InkWell(
@@ -28,10 +28,10 @@ class _RegisterPageState extends State<RegisterPage> {
                   Navigator.pop(context);
                 },
                 child: Container(
-                  height: ScreenUtil.mediaQueryData.size.height*0.08,
+                  height: 50,
                   decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                    borderRadius: BorderRadius.only(bottomRight: Radius.circular(10),bottomLeft: Radius.circular(10)),
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -42,7 +42,7 @@ class _RegisterPageState extends State<RegisterPage> {
               ),
             ),
             Positioned(
-              bottom: ScreenUtil.mediaQueryData.size.height*0.1,
+              bottom: 80,
               right: ScreenUtil.getInstance().setWidth(140),
               left: ScreenUtil.getInstance().setWidth(140),
               child: InkWell(

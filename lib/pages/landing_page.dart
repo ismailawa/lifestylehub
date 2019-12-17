@@ -42,7 +42,11 @@ class _LandingPageState extends State<LandingPage> {
                     SizedBox(
                       height: 20,
                     ),
-                    DrawerTiles(onPress: (){ print("Hello");},),
+                    DrawerTiles(
+                      onPress: () {
+                        print("Hello");
+                      },
+                    ),
                     Padding(
                       padding: const EdgeInsets.only(top: 15),
                       child: Row(
@@ -61,16 +65,29 @@ class _LandingPageState extends State<LandingPage> {
                             height: 45,
                             width: 220,
                             decoration: BoxDecoration(
-                              color: accentColor,
-                               borderRadius: BorderRadius.only(bottomRight: Radius.circular(20), topRight: Radius.circular(20))
-                            ),
+                                color: accentColor,
+                                borderRadius: BorderRadius.only(
+                                    bottomRight: Radius.circular(20),
+                                    topRight: Radius.circular(20))),
                             child: Padding(
                               padding: const EdgeInsets.only(left: 10),
                               child: Row(
                                 children: <Widget>[
-                                  Icon(Icons.watch_later, color: Colors.black,size: 30,),
-                                  SizedBox(width: 20,),
-                                  Text("SUBSCRIPTIONS", style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.black),)
+                                  Icon(
+                                    Icons.watch_later,
+                                    color: Colors.black,
+                                    size: 30,
+                                  ),
+                                  SizedBox(
+                                    width: 20,
+                                  ),
+                                  Text(
+                                    "SUBSCRIPTIONS",
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.black),
+                                  )
                                 ],
                               ),
                             ),
@@ -78,32 +95,47 @@ class _LandingPageState extends State<LandingPage> {
                         ],
                       ),
                     ),
-                    DrawerTiles(icon: MaterialCommunityIcons.message_processing,title: "MESSAGES",),
-                    DrawerTiles(icon: SimpleLineIcons.calendar,title: "TASKS",),
-                    DrawerTiles(icon: SimpleLineIcons.target,title: "REFLECTION",),
-                    DrawerTiles(icon: Icons.shop,title: "DIARY",),
-                    DrawerTiles(icon: Icons.settings,title: "SETTINGS",),
-                    DrawerTiles(icon: Icons.edit,title: "COACHING",),
-
+                    DrawerTiles(
+                      icon: MaterialCommunityIcons.message_processing,
+                      title: "MESSAGES",
+                    ),
+                    DrawerTiles(
+                      icon: SimpleLineIcons.calendar,
+                      title: "TASKS",
+                    ),
+                    DrawerTiles(
+                      icon: SimpleLineIcons.target,
+                      title: "REFLECTION",
+                    ),
+                    DrawerTiles(
+                      icon: Icons.shop,
+                      title: "DIARY",
+                    ),
+                    DrawerTiles(
+                      icon: Icons.settings,
+                      title: "SETTINGS",
+                    ),
+                    DrawerTiles(
+                      icon: Icons.edit,
+                      title: "COACHING",
+                    ),
                     Padding(
                       padding: const EdgeInsets.only(top: 20),
                       child: MaterialButton(
-                        onPressed: (){},
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                        onPressed: () {},
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20)),
                         child: Row(
                           children: <Widget>[
                             Container(
                               height: 40,
                               width: 200,
                               decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                gradient: LinearGradient(
-                                  colors: [
+                                  borderRadius: BorderRadius.circular(20),
+                                  gradient: LinearGradient(colors: [
                                     Colors.black,
                                     Color(0xFFA2163B)
-                                  ]
-                                )
-                              ),
+                                  ])),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
@@ -119,7 +151,6 @@ class _LandingPageState extends State<LandingPage> {
                         ),
                       ),
                     )
-
                   ],
                 ),
               ),
@@ -127,61 +158,73 @@ class _LandingPageState extends State<LandingPage> {
           ),
         ),
       ),
-      body: Container(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              ReflectionHeader(),
-              Container(
-                height: 300,
-                width: MediaQuery.of(context).size.width,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: reflections.length,
-                    itemBuilder: (context, index){
-                      return ReflectionCard(reflection: reflections[index],);
-                    })
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Divider(
-                  thickness: 2,
-                ),
-              ),
-              Container(
-                height: 280,
-                width: MediaQuery.of(context).size.width,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.all(12),
-                      child: Text(
-                        "CATEGORIES",
-                        style: TextStyle(fontSize: 20),
+      body: PageView(
+        scrollDirection: Axis.horizontal,
+        children: <Widget>[
+          ReflectionPage(),
+          Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            child: Column(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Container(
+                    height: 60,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
                       ),
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: 200,
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: categories.length,
-                        itemBuilder: (context, index){
-                          return CategoryCard(category: categories[index],);
-                        },
+                    child: Flex(
+                      direction: Axis.horizontal,
+                      children: <Widget>[
+                        Flexible(
+                          flex: 1,
+                          fit: FlexFit.tight,
+                          child: Container(
+                            child: Center(child: Text("DIARY")),
+                            decoration: BoxDecoration(
+                              border: Border(
+                                  bottom: BorderSide(
+                                      color: accentColor, width: 5)
+                              )
+                            ),
+                          ),
+                        ),
+                        Flexible(
+                          flex: 1,
+                          fit: FlexFit.tight,
+                          child: Container(
+                            decoration: BoxDecoration(
+                                border: Border(
+                                    bottom: BorderSide(
+                                        color: accentColor, width: 5)
+                                )
+                            ),
+                            child: Center(child: Text("DIARY")),
+                          ),
+                        ),
+                        Flexible(
+                          flex: 1,
+                          fit: FlexFit.tight,
 
-                      ),
-                    )
-                  ],
-                ),
-              )
-            ],
-          ),
-        ),
+                          child: Container(
+                            decoration: BoxDecoration(
+                                border: Border(
+                                    bottom: BorderSide(
+                                        color: accentColor, width: 5)
+                                )
+                            ),
+                            child: Center(child: Text("DIARY")),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                )
+              ],
+            ),
+          )
+        ],
       ),
     );
   }
@@ -243,6 +286,74 @@ class _LandingPageState extends State<LandingPage> {
   }
 }
 
+class ReflectionPage extends StatelessWidget {
+  const ReflectionPage({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: MediaQuery.of(context).size.height,
+      width: MediaQuery.of(context).size.width,
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            ReflectionHeader(),
+            Container(
+                height: 300,
+                width: MediaQuery.of(context).size.width,
+                child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: reflections.length,
+                    itemBuilder: (context, index) {
+                      return ReflectionCard(
+                        reflection: reflections[index],
+                      );
+                    })),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Divider(
+                thickness: 2,
+              ),
+            ),
+            Container(
+              height: 280,
+              width: MediaQuery.of(context).size.width,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(12),
+                    child: Text(
+                      "CATEGORIES",
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: 200,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: categories.length,
+                      itemBuilder: (context, index) {
+                        return CategoryCard(
+                          category: categories[index],
+                        );
+                      },
+                    ),
+                  )
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 class DrawerHeader extends StatelessWidget {
   const DrawerHeader({
     Key key,
@@ -264,29 +375,34 @@ class DrawerHeader extends StatelessWidget {
                   width: 2,
                   style: BorderStyle.solid,
                 ),
-              shape: BoxShape.circle
-            ),
+                shape: BoxShape.circle),
           ),
           Padding(
             padding: const EdgeInsets.only(left: 20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text("Tunde Burby!",style: TextStyle(fontSize: 20,),),
+                Text(
+                  "Tunde Burby!",
+                  style: TextStyle(
+                    fontSize: 20,
+                  ),
+                ),
                 Text("gold.oni@gmail.com"),
                 Padding(
                   padding: const EdgeInsets.only(left: 15),
                   child: MaterialButton(
                     height: 20,
-                    onPressed: (){},
+                    onPressed: () {},
                     color: accentColor,
-                    child: Text("profile", ),
+                    child: Text(
+                      "profile",
+                    ),
                   ),
                 )
               ],
             ),
           ),
-
         ],
       ),
     );
@@ -298,7 +414,10 @@ class DrawerTiles extends StatelessWidget {
   final String title;
   final Function onPress;
   const DrawerTiles({
-    Key key, this.icon = MaterialIcons.book, this.title ="DASHBOARD", this.onPress,
+    Key key,
+    this.icon = MaterialIcons.book,
+    this.title = "DASHBOARD",
+    this.onPress,
   }) : super(key: key);
 
   @override
@@ -306,12 +425,21 @@ class DrawerTiles extends StatelessWidget {
     return InkWell(
       onTap: onPress,
       child: Padding(
-        padding: const EdgeInsets.only(left: 30,top: 10),
+        padding: const EdgeInsets.only(left: 30, top: 10),
         child: Row(
           children: <Widget>[
-            Icon(icon,size: 30, color: Color(0xFF888C98),),
-            SizedBox(width: 20,),
-            Text(title, style: TextStyle(fontSize: 16, fontWeight: FontWeight.w200),)
+            Icon(
+              icon,
+              size: 30,
+              color: Color(0xFF888C98),
+            ),
+            SizedBox(
+              width: 20,
+            ),
+            Text(
+              title,
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w200),
+            )
           ],
         ),
       ),
