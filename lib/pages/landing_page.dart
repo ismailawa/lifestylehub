@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:life_style_hub/models/category.dart';
 import 'package:life_style_hub/models/reflection.dart';
+import 'package:life_style_hub/pages/reflection_page.dart';
 import 'package:life_style_hub/values/colors.dart';
 import 'package:life_style_hub/widgets/category_card.dart';
 import 'package:life_style_hub/widgets/reflection_card.dart';
@@ -14,13 +14,19 @@ class LandingPage extends StatefulWidget {
 }
 
 class _LandingPageState extends State<LandingPage> {
-  final GlobalKey<ScaffoldState> _ScaffoldKey = new GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  PageController _controller;
+  List<Widget> pages = [
+    ContentPage(),
+    ReflectionsPage(),
+  ];
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
-      key: _ScaffoldKey,
+      key: _scaffoldKey,
       backgroundColor: backgroundColor,
-      appBar: customAppBar(_ScaffoldKey),
+      appBar: customAppBar(_scaffoldKey),
       drawer: Theme(
         data: Theme.of(context).copyWith(canvasColor: Colors.transparent),
         child: Drawer(
@@ -44,7 +50,7 @@ class _LandingPageState extends State<LandingPage> {
                     ),
                     DrawerTiles(
                       onPress: () {
-                        print("Hello");
+
                       },
                     ),
                     Padding(
@@ -159,74 +165,13 @@ class _LandingPageState extends State<LandingPage> {
         ),
       ),
       body: PageView(
+        controller: _controller,
         scrollDirection: Axis.horizontal,
-        children: <Widget>[
-          ReflectionPage(),
-          Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
-            child: Column(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Container(
-                    height: 60,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      ),
-                    child: Flex(
-                      direction: Axis.horizontal,
-                      children: <Widget>[
-                        Flexible(
-                          flex: 1,
-                          fit: FlexFit.tight,
-                          child: Container(
-                            child: Center(child: Text("DIARY")),
-                            decoration: BoxDecoration(
-                              border: Border(
-                                  bottom: BorderSide(
-                                      color: accentColor, width: 5)
-                              )
-                            ),
-                          ),
-                        ),
-                        Flexible(
-                          flex: 1,
-                          fit: FlexFit.tight,
-                          child: Container(
-                            decoration: BoxDecoration(
-                                border: Border(
-                                    bottom: BorderSide(
-                                        color: accentColor, width: 5)
-                                )
-                            ),
-                            child: Center(child: Text("DIARY")),
-                          ),
-                        ),
-                        Flexible(
-                          flex: 1,
-                          fit: FlexFit.tight,
-
-                          child: Container(
-                            decoration: BoxDecoration(
-                                border: Border(
-                                    bottom: BorderSide(
-                                        color: accentColor, width: 5)
-                                )
-                            ),
-                            child: Center(child: Text("DIARY")),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                )
-              ],
-            ),
-          )
-        ],
+        children: pages,
       ),
     );
+
+
   }
 
   AppBar customAppBar(GlobalKey<ScaffoldState> key) {
@@ -286,8 +231,9 @@ class _LandingPageState extends State<LandingPage> {
   }
 }
 
-class ReflectionPage extends StatelessWidget {
-  const ReflectionPage({
+
+class ContentPage extends StatelessWidget {
+  const ContentPage({
     Key key,
   }) : super(key: key);
 

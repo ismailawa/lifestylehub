@@ -75,3 +75,43 @@ List<Reflection> reflections = [
       date: DateTime(2020,01,01)
   ),
 ];
+
+Map<String,List<Reflection>> reflectionByMonths = {
+  "january":[
+
+  ],
+  "febuary":[
+
+  ],
+  "march":[
+
+  ],
+  "april":[
+
+  ],
+  "may":[
+
+  ],
+  "june":[
+
+  ],
+  "july":[
+
+  ],
+  "august":[
+
+  ],
+  "september":[
+
+  ],
+  "october":[
+
+  ],
+  "november":[
+
+  ],
+   "december":[
+
+   ]
+};
+
