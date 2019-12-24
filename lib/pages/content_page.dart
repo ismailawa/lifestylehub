@@ -1,14 +1,15 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:life_style_hub/models/reflection.dart';
+import 'package:life_style_hub/pages/videos_page.dart';
 import 'package:life_style_hub/values/values.dart';
 
-class ReflectionsPage extends StatefulWidget {
+class ContentsPage extends StatefulWidget {
+  ContentsPage({Key key}) : super(key: key);
+
   @override
-  _ReflectionsPageState createState() => _ReflectionsPageState();
+  _ContentsPageState createState() => _ContentsPageState();
 }
 
-class _ReflectionsPageState extends State<ReflectionsPage> {
+class _ContentsPageState extends State<ContentsPage> {
   PageController _pageController = PageController();
   int selectedPage = 0;
   @override
@@ -27,9 +28,9 @@ class _ReflectionsPageState extends State<ReflectionsPage> {
               child: Flex(
                 direction: Axis.horizontal,
                 children: <Widget>[
-                  tabHeaderBtn("DIARY", true, 0),
-                  tabHeaderBtn("TO-DOs", false, 1),
-                  tabHeaderBtn("REFLECTIONS", false, 2),
+                  tabHeaderBtn("VIDEOS", true, 0),
+                  tabHeaderBtn("AUDIOS", false, 1),
+                  tabHeaderBtn("EBOOKS", false, 2),
                 ],
               ),
             ),
@@ -45,11 +46,7 @@ class _ReflectionsPageState extends State<ReflectionsPage> {
                 controller: _pageController,
                 scrollDirection: Axis.horizontal,
                 children: <Widget>[
-                  Container(
-                    child: Center(
-                      child: Text("DIARY"),
-                    ),
-                  ),
+                  Videos(),
                   Container(
                     child: Center(
                       child: Text("TO-DOs"),
@@ -66,17 +63,6 @@ class _ReflectionsPageState extends State<ReflectionsPage> {
         ],
       ),
     );
-  }
-
-  List<Widget> nestedListBuilder() {
-    var views = [];
-    reflectionByMonths.forEach((month, reflections) {
-      views.add(Container(
-        child: Text(month),
-      ));
-    });
-
-    return views;
   }
 
   Flexible tabHeaderBtn(String title, bool isActive, int page) {

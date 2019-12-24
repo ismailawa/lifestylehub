@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:life_style_hub/models/category.dart';
 import 'package:life_style_hub/models/reflection.dart';
+import 'package:life_style_hub/pages/Messages.dart';
+import 'package:life_style_hub/pages/content_page.dart';
 import 'package:life_style_hub/pages/reflection_page.dart';
 import 'package:life_style_hub/values/colors.dart';
 import 'package:life_style_hub/widgets/category_card.dart';
@@ -14,15 +16,24 @@ class LandingPage extends StatefulWidget {
 }
 
 class _LandingPageState extends State<LandingPage> {
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  GlobalKey<ScaffoldState> _scaffoldKey;
   PageController _controller;
   List<Widget> pages = [
-    ContentPage(),
-    ReflectionsPage(),
+    ContentPage(), //0
+    ReflectionsPage(), //1
+    Messages(), //2
+    ContentsPage() //3
   ];
+
+  @override
+  void initState() {
+    _scaffoldKey = GlobalKey<ScaffoldState>();
+    _controller = PageController();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: backgroundColor,
@@ -50,7 +61,9 @@ class _LandingPageState extends State<LandingPage> {
                     ),
                     DrawerTiles(
                       onPress: () {
-
+                        setState(() {
+                          _controller.jumpToPage(0);
+                        });
                       },
                     ),
                     Padding(
@@ -104,19 +117,24 @@ class _LandingPageState extends State<LandingPage> {
                     DrawerTiles(
                       icon: MaterialCommunityIcons.message_processing,
                       title: "MESSAGES",
+                      onPress: () {
+                        setState(() {
+                          _controller.jumpToPage(2);
+                        });
+                      },
                     ),
                     DrawerTiles(
                       icon: SimpleLineIcons.calendar,
                       title: "TASKS",
                     ),
-                    InkWell(
-                      onTap: (){
-                        _controller.jumpToPage(1);
+                    DrawerTiles(
+                      icon: SimpleLineIcons.target,
+                      title: "REFLECTION",
+                      onPress: () {
+                        setState(() {
+                          _controller.jumpToPage(1);
+                        });
                       },
-                      child: DrawerTiles(
-                        icon: SimpleLineIcons.target,
-                        title: "REFLECTION",
-                      ),
                     ),
                     DrawerTiles(
                       icon: Icons.shop,
@@ -129,6 +147,11 @@ class _LandingPageState extends State<LandingPage> {
                     DrawerTiles(
                       icon: Icons.edit,
                       title: "COACHING",
+                      onPress: () {
+                        setState(() {
+                          _controller.jumpToPage(3);
+                        });
+                      },
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 20),
@@ -175,8 +198,6 @@ class _LandingPageState extends State<LandingPage> {
         children: pages,
       ),
     );
-
-
   }
 
   AppBar customAppBar(GlobalKey<ScaffoldState> key) {
@@ -235,7 +256,6 @@ class _LandingPageState extends State<LandingPage> {
     );
   }
 }
-
 
 class ContentPage extends StatelessWidget {
   const ContentPage({
@@ -373,7 +393,9 @@ class DrawerTiles extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Padding(
+    return InkWell(
+      onTap: onPress,
+      child: Padding(
         padding: const EdgeInsets.only(left: 30, top: 10),
         child: Row(
           children: <Widget>[
@@ -391,7 +413,8 @@ class DrawerTiles extends StatelessWidget {
             )
           ],
         ),
-      );
+      ),
+    );
   }
 }
 
