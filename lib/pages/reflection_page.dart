@@ -54,9 +54,9 @@ class _ReflectionsPageState extends State<ReflectionsPage> {
                   Container(
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height,
-                    child: ListView(
-                      children: nestedListBuilder(),
-                    )
+                    child:Text("")
+
+
                   )
                 ],
               ),
