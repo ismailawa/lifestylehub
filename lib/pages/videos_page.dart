@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:life_style_hub/models/reflection.dart';
 import 'package:life_style_hub/values/colors.dart';
 
 class Videos extends StatefulWidget {
@@ -12,6 +13,17 @@ class _VideosState extends State<Videos> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: BottomNavigationBar(
+        items: [
+          BottomNavigationBarItem(
+              backgroundColor: accentColor,
+              icon: Icon(Icons.music_note),
+              title: Text("")),
+          BottomNavigationBarItem(icon: Icon(Icons.home), title: Text("")),
+          BottomNavigationBarItem(icon: Icon(Icons.search), title: Text("")),
+          BottomNavigationBarItem(icon: Icon(Icons.folder), title: Text(""))
+        ],
+      ),
       backgroundColor: backgroundColor,
       body: Padding(
         padding: const EdgeInsets.only(top: 20, left: 15, right: 15),
@@ -32,14 +44,18 @@ class _VideosState extends State<Videos> {
                   itemBuilder: (context, index) {
                     return Container(
                       decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: ExactAssetImage(
+                                  "${reflections[index].imageUrl}"),
+                              fit: BoxFit.cover),
                           color: Colors.lightBlue,
                           borderRadius: BorderRadius.circular(10)),
                       child: Center(
-                        child: Text("test"),
+                        child: Text("${reflections[index].author}"),
                       ),
                     );
                   },
-                  itemCount: 12,
+                  itemCount: reflections.length,
                 ),
               ),
             )
