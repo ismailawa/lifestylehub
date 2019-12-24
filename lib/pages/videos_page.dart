@@ -18,16 +18,22 @@ class _VideosState extends State<Videos> {
         child: Column(
           children: <Widget>[
             AudioPlayer(),
+            SizedBox(
+              height: 10,
+            ),
             Expanded(
               child: Container(
                 child: GridView.builder(
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 3,
-                      childAspectRatio: (1 / 2),
-                      crossAxisSpacing: 5,
-                      mainAxisSpacing: 5),
+                      childAspectRatio: (0.8),
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 10),
                   itemBuilder: (context, index) {
                     return Container(
+                      decoration: BoxDecoration(
+                          color: Colors.lightBlue,
+                          borderRadius: BorderRadius.circular(10)),
                       child: Center(
                         child: Text("test"),
                       ),
