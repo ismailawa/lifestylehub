@@ -109,9 +109,14 @@ class _LandingPageState extends State<LandingPage> {
                       icon: SimpleLineIcons.calendar,
                       title: "TASKS",
                     ),
-                    DrawerTiles(
-                      icon: SimpleLineIcons.target,
-                      title: "REFLECTION",
+                    InkWell(
+                      onTap: (){
+                        _controller.jumpToPage(1);
+                      },
+                      child: DrawerTiles(
+                        icon: SimpleLineIcons.target,
+                        title: "REFLECTION",
+                      ),
                     ),
                     DrawerTiles(
                       icon: Icons.shop,
@@ -368,9 +373,7 @@ class DrawerTiles extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onPress,
-      child: Padding(
+    return  Padding(
         padding: const EdgeInsets.only(left: 30, top: 10),
         child: Row(
           children: <Widget>[
@@ -388,8 +391,7 @@ class DrawerTiles extends StatelessWidget {
             )
           ],
         ),
-      ),
-    );
+      );
   }
 }
 
