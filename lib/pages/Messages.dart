@@ -58,7 +58,7 @@ class MessagesState extends State<Messages> {
                 ),
               ]),
             ),
-            new Expanded(
+            Expanded(
               child: Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: ListView.separated(
@@ -84,7 +84,7 @@ class MessagesState extends State<Messages> {
                         width: 80.0,
                         height: 80.0,
                         child: ClipRRect(
-                          borderRadius: new BorderRadius.circular(10.0),
+                          borderRadius: BorderRadius.circular(10.0),
                           child: Image(
                             fit: BoxFit.cover,
                             image: AssetImage('${message[index]['image']}'),
@@ -105,8 +105,8 @@ class MessagesState extends State<Messages> {
                   )),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 96.0, right: 96.0),
-              child: new Container(
+              padding: EdgeInsets.only(left: 96.0, right: 96.0),
+              child: Container(
                 height: 1.0,
                 color: Colors.white30,
                 margin: EdgeInsets.only(bottom: 8.0),
