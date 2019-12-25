@@ -6,7 +6,6 @@ import 'package:chewie/chewie.dart';
 
 class Videos extends StatefulWidget {
   Videos({Key key}) : super(key: key);
-
   @override
   _VideosState createState() => _VideosState();
 }
@@ -85,17 +84,18 @@ class LSHVideoPlayer extends StatefulWidget {
 class _LSHVideoPlayerState extends State<LSHVideoPlayer> {
   VideoPlayerController _playerController;
   ChewieController _chewieController;
+
   @override
   void initState() {
     super.initState();
-    _playerController = VideoPlayerController.network(
-        "https://www.youtube.com/watch?v=V41_-PNZ92U");
+    _playerController = VideoPlayerController.asset("assets/videos/video.mp4");
     _chewieController = ChewieController(
-        videoPlayerController: _playerController,
-        autoInitialize: true,
-        aspectRatio: 3 / 2,
-        looping: false,
-        autoPlay: false);
+      videoPlayerController: _playerController,
+      autoInitialize: true,
+      aspectRatio: 3 / 2,
+      looping: false,
+      autoPlay: false,
+    );
   }
 
   @override
@@ -111,11 +111,14 @@ class _LSHVideoPlayerState extends State<LSHVideoPlayer> {
         height: 250,
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
-          color: Colors.grey,
+          color: Colors.transparent,
           borderRadius: BorderRadius.circular(10),
         ),
-        child: Chewie(
-          controller: _chewieController,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(10),
+          child: Chewie(
+            controller: _chewieController,
+          ),
         ));
   }
 }
