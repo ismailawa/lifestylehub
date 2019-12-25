@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:life_style_hub/pages/audios_page.dart';
 import 'package:life_style_hub/pages/videos_page.dart';
 import 'package:life_style_hub/values/values.dart';
 
@@ -47,11 +48,7 @@ class _ContentsPageState extends State<ContentsPage> {
                 scrollDirection: Axis.horizontal,
                 children: <Widget>[
                   Videos(),
-                  Container(
-                    child: Center(
-                      child: Text("TO-DOs"),
-                    ),
-                  ),
+                  Audios(),
                   Container(
                       width: MediaQuery.of(context).size.width,
                       height: MediaQuery.of(context).size.height,
