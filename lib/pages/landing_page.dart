@@ -214,11 +214,11 @@ class _LandingPageState extends State<LandingPage> {
             width: 30,
             height: 25,
             decoration: BoxDecoration(
-                color: Color(0xFF1A1B1F),
-                borderRadius: BorderRadius.circular(8)),
+                color: backgroundColor, borderRadius: BorderRadius.circular(8)),
             child: Icon(
               MaterialCommunityIcons.menu,
               size: 45,
+              color: LSHBlackColor,
             ),
           ),
         ),
@@ -230,11 +230,11 @@ class _LandingPageState extends State<LandingPage> {
             width: 30,
             height: 25,
             decoration: BoxDecoration(
-                color: Color(0xFF1A1B1F),
-                borderRadius: BorderRadius.circular(5)),
+                color: backgroundColor, borderRadius: BorderRadius.circular(5)),
             child: Icon(
               MaterialCommunityIcons.bookmark_outline,
               size: 20,
+              color: LSHBlackColor,
             ),
           ),
         ),
@@ -244,11 +244,11 @@ class _LandingPageState extends State<LandingPage> {
             width: 30,
             height: 25,
             decoration: BoxDecoration(
-                color: Color(0xFF1A1B1F),
-                borderRadius: BorderRadius.circular(5)),
+                color: backgroundColor, borderRadius: BorderRadius.circular(5)),
             child: Icon(
               MaterialCommunityIcons.settings,
               size: 20,
+              color: LSHBlackColor,
             ),
           ),
         ),
@@ -431,8 +431,11 @@ class ReflectionHeader extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(
-            "QUOTE OF THE DAY",
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            "REFLECTIONS",
+            style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: LSHBlackColor),
           ),
           SizedBox(
             height: 10,
@@ -441,7 +444,7 @@ class ReflectionHeader extends StatelessWidget {
             children: <Widget>[
               Text(
                 "Put down your plans and thought!",
-                style: TextStyle(wordSpacing: 4, color: Color(0xFF91959E)),
+                style: TextStyle(wordSpacing: 4, color: LSHBlackColor),
               ),
               Expanded(
                 child: Container(),

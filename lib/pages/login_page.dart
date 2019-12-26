@@ -15,7 +15,8 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     ScreenUtil.instance =
-    ScreenUtil(width: 750, height: 1334, allowFontScaling: true)..init(context);
+        ScreenUtil(width: 750, height: 1334, allowFontScaling: true)
+          ..init(context);
     return Scaffold(
       backgroundColor: backgroundColor,
       body: SingleChildScrollView(
@@ -30,9 +31,10 @@ class _LoginPageState extends State<LoginPage> {
               children: <Widget>[
                 Logo(),
                 customTextFormField("Username", MaterialCommunityIcons.account),
-                customTextFormField("Password", MaterialCommunityIcons.lock, hideText: true),
+                customTextFormField("Password", MaterialCommunityIcons.lock,
+                    hideText: true),
                 InkWell(
-                  onTap: (){
+                  onTap: () {
                     Navigator.of(context).pushNamed("forget");
                   },
                   child: Padding(
@@ -59,15 +61,21 @@ class _LoginPageState extends State<LoginPage> {
                   child: Text("REGISTER"),
                   minWidth: double.infinity,
                   height: 45,
-                  color: Color(0xFFADADAD),
+                  color: LSHBlackColor,
                 ),
                 optionalDivider(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
-                    SocialMediaIcon(icon: MaterialCommunityIcons.facebook,),
-                    SocialMediaIcon(icon: MaterialCommunityIcons.twitter,),
-                    SocialMediaIcon(icon: MaterialCommunityIcons.google_plus,)
+                    SocialMediaIcon(
+                      icon: MaterialCommunityIcons.facebook,
+                    ),
+                    SocialMediaIcon(
+                      icon: MaterialCommunityIcons.twitter,
+                    ),
+                    SocialMediaIcon(
+                      icon: MaterialCommunityIcons.google_plus,
+                    )
                   ],
                 )
               ],
@@ -87,21 +95,28 @@ class _LoginPageState extends State<LoginPage> {
           Container(
             width: double.infinity,
             height: 0.5,
-            color: Colors.white,
+            color: LSHBlackColor,
           ),
           Container(
             height: 50,
             width: 50,
             decoration:
                 BoxDecoration(shape: BoxShape.circle, color: backgroundColor),
-            child: Center(child: Text("Or")),
+            child: Center(
+                child: Text(
+              "Or",
+              style: TextStyle(
+                color: LSHBlackColor,
+              ),
+            )),
           )
         ],
       ),
     );
   }
 
-  Padding customTextFormField(String hint, IconData icon, {bool hideText=false}) {
+  Padding customTextFormField(String hint, IconData icon,
+      {bool hideText = false}) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5),
       child: TextFormField(
@@ -116,7 +131,3 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 }
-
-
-
-

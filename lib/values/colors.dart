@@ -1,6 +1,8 @@
 import 'package:flutter/widgets.dart';
 
-Color backgroundColor = Color(0xFF292E42);
+Color backgroundColor = Color(0xFFFFFFFF);
 Color inputBackgroundColor = Color(0xFF5F6273);
 Color logoBg = Color(0xFF5C5F70);
-Color accentColor = Color(0xFFFF0038);
+Color accentColor = Color(0xFFF1A208);
+
+Color LSHBlackColor = Color(0xFF0D1B1E);

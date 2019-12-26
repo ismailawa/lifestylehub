@@ -5,6 +5,7 @@ class Reflection {
   final String domain;
   final DateTime date;
   final String imageUrl;
+  final String videoUrl;
 
   Reflection({
     this.keyword,
@@ -13,6 +14,7 @@ class Reflection {
     this.domain,
     this.date,
     this.imageUrl,
+    this.videoUrl,
   });
 }
 
@@ -24,6 +26,7 @@ List<Reflection> reflections = [
       author: "Gad Elmalch",
       domain: "quickparrel.com",
       imageUrl: "assets/images/p1.jpg",
+      videoUrl: "assets/videos/video.mp4",
       date: DateTime(2020, 01, 01)),
   Reflection(
       keyword: "Success",
@@ -32,6 +35,7 @@ List<Reflection> reflections = [
       author: "Gad Elmalch",
       domain: "quickparrel.com",
       imageUrl: "assets/images/p2.jpg",
+      videoUrl: "assets/videos/video1.mp4",
       date: DateTime(2020, 01, 01)),
   Reflection(
       keyword: "Success",
@@ -40,6 +44,7 @@ List<Reflection> reflections = [
       author: "Gad Elmalch",
       domain: "quickparrel.com",
       imageUrl: "assets/images/p3.jpg",
+      videoUrl: "assets/videos/video.mp4",
       date: DateTime(2020, 01, 01)),
   Reflection(
     keyword: "Success",
@@ -48,6 +53,7 @@ List<Reflection> reflections = [
     author: "Gad Elmalch",
     domain: "quickparrel.com",
     imageUrl: "assets/images/p2.jpg",
+    videoUrl: "assets/videos/video1.mp4",
     date: DateTime(2020, 01, 01),
   ),
   Reflection(
@@ -57,6 +63,7 @@ List<Reflection> reflections = [
       author: "Gad Elmalch",
       domain: "quickparrel.com",
       imageUrl: "assets/images/p1.jpg",
+      videoUrl: "assets/videos/video.mp4",
       date: DateTime(2020, 01, 01)),
   Reflection(
       keyword: "Success",
@@ -65,6 +72,7 @@ List<Reflection> reflections = [
       author: "Gad Elmalch",
       domain: "quickparrel.com",
       imageUrl: "assets/images/p2.jpg",
+      videoUrl: "assets/videos/video1.mp4",
       date: DateTime(2020, 01, 01)),
   Reflection(
       keyword: "Success",
@@ -73,6 +81,7 @@ List<Reflection> reflections = [
       author: "Gad Elmalch",
       domain: "quickparrel.com",
       imageUrl: "assets/images/p3.jpg",
+      videoUrl: "assets/videos/video.mp4",
       date: DateTime(2020, 01, 01)),
   Reflection(
     keyword: "Success",
@@ -81,6 +90,7 @@ List<Reflection> reflections = [
     author: "Gad Elmalch",
     domain: "quickparrel.com",
     imageUrl: "assets/images/p2.jpg",
+    videoUrl: "assets/videos/video1.mp4",
     date: DateTime(2020, 01, 01),
   ),
   Reflection(
@@ -90,6 +100,7 @@ List<Reflection> reflections = [
       author: "Gad Elmalch",
       domain: "quickparrel.com",
       imageUrl: "assets/images/p1.jpg",
+      videoUrl: "assets/videos/video.mp4",
       date: DateTime(2020, 01, 01)),
   Reflection(
       keyword: "Success",
@@ -98,6 +109,7 @@ List<Reflection> reflections = [
       author: "Gad Elmalch",
       domain: "quickparrel.com",
       imageUrl: "assets/images/p2.jpg",
+      videoUrl: "assets/videos/video1.mp4",
       date: DateTime(2020, 01, 01)),
   Reflection(
       keyword: "Success",
@@ -106,6 +118,7 @@ List<Reflection> reflections = [
       author: "Gad Elmalch",
       domain: "quickparrel.com",
       imageUrl: "assets/images/p3.jpg",
+      videoUrl: "assets/videos/video.mp4",
       date: DateTime(2020, 01, 01)),
 ];
 

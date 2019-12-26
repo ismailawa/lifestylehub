@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:life_style_hub/models/reflection.dart';
 import 'package:life_style_hub/values/colors.dart';
+import 'package:life_style_hub/widgets/media_card.dart';
 import 'package:video_player/video_player.dart';
 import 'package:chewie/chewie.dart';
 
@@ -11,6 +12,30 @@ class Videos extends StatefulWidget {
 }
 
 class _VideosState extends State<Videos> {
+  String mediaUrl = "assets/videos/default.mp4";
+  VideoPlayerController _playerController;
+  ChewieController _chewieController;
+
+  @override
+  void initState() {
+    super.initState();
+    _playerController = VideoPlayerController.asset(mediaUrl);
+    _chewieController = ChewieController(
+      videoPlayerController: _playerController,
+      autoInitialize: true,
+      aspectRatio: 3 / 2,
+      looping: false,
+      autoPlay: false,
+    );
+  }
+
+  @override
+  void dispose() {
+    _chewieController.dispose();
+    _playerController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,7 +64,19 @@ class _VideosState extends State<Videos> {
         padding: const EdgeInsets.only(top: 20, left: 15, right: 15),
         child: Column(
           children: <Widget>[
-            LSHVideoPlayer(),
+            Container(
+                height: 250,
+                width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                  color: backgroundColor,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: Chewie(
+                    controller: _chewieController,
+                  ),
+                )),
             SizedBox(
               height: 10,
             ),
@@ -52,16 +89,25 @@ class _VideosState extends State<Videos> {
                       crossAxisSpacing: 10,
                       mainAxisSpacing: 10),
                   itemBuilder: (context, index) {
-                    return Container(
-                      decoration: BoxDecoration(
-                          image: DecorationImage(
-                              image: ExactAssetImage(
-                                  "${reflections[index].imageUrl}"),
-                              fit: BoxFit.cover),
-                          color: Colors.lightBlue,
-                          borderRadius: BorderRadius.circular(10)),
-                      child: Center(
-                        child: Text("${reflections[index].author}"),
+                    return InkWell(
+                      onTap: () {
+                        setState(() {
+                          _chewieController.dispose();
+                          _playerController.pause();
+                          _playerController.seekTo(Duration(seconds: 0));
+                          _playerController = VideoPlayerController.asset(
+                              reflections[index].videoUrl);
+                          _chewieController = ChewieController(
+                            videoPlayerController: _playerController,
+                            autoInitialize: true,
+                            aspectRatio: 3 / 2,
+                            looping: false,
+                            autoPlay: false,
+                          );
+                        });
+                      },
+                      child: MediaCard(
+                        reflection: reflections[index],
                       ),
                     );
                   },
@@ -82,13 +128,14 @@ class LSHVideoPlayer extends StatefulWidget {
 }
 
 class _LSHVideoPlayerState extends State<LSHVideoPlayer> {
+  String mediaUrl = "assets/videos/default.mp4";
   VideoPlayerController _playerController;
   ChewieController _chewieController;
 
   @override
   void initState() {
     super.initState();
-    _playerController = VideoPlayerController.asset("assets/videos/video.mp4");
+    _playerController = VideoPlayerController.asset(mediaUrl);
     _chewieController = ChewieController(
       videoPlayerController: _playerController,
       autoInitialize: true,
@@ -111,7 +158,7 @@ class _LSHVideoPlayerState extends State<LSHVideoPlayer> {
         height: 250,
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
-          color: Colors.transparent,
+          color: backgroundColor,
           borderRadius: BorderRadius.circular(10),
         ),
         child: ClipRRect(
