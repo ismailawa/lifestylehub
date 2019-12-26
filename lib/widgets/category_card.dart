@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:life_style_hub/models/category.dart';
+import 'package:life_style_hub/values/colors.dart';
 
 class CategoryCard extends StatelessWidget {
   final Category category;
@@ -31,7 +32,7 @@ class CategoryCard extends StatelessWidget {
           padding: const EdgeInsets.only(left: 12, top: 10),
           child: Text(
             category.name,
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: LSHBlackColor),
           ),
         ),
         Padding(
@@ -39,9 +40,9 @@ class CategoryCard extends StatelessWidget {
           child: Row(
             children: <Widget>[
               Text("${category.trainers} trainers,",
-                  style: TextStyle(fontStyle: FontStyle.italic)),
+                  style: TextStyle(fontStyle: FontStyle.italic, color: LSHBlackColor)),
               Text("${category.lessons} lessons",
-                  style: TextStyle(fontStyle: FontStyle.italic))
+                  style: TextStyle(fontStyle: FontStyle.italic, color: LSHBlackColor))
             ],
           ),
         )

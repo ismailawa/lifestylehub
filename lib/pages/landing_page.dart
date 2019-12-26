@@ -273,7 +273,7 @@ class ContentPage extends StatelessWidget {
           children: <Widget>[
             ReflectionHeader(),
             Container(
-                height: 300,
+                height: 320,
                 width: MediaQuery.of(context).size.width,
                 child: ListView.builder(
                     scrollDirection: Axis.horizontal,
@@ -283,23 +283,43 @@ class ContentPage extends StatelessWidget {
                         reflection: reflections[index],
                       );
                     })),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Divider(
-                thickness: 2,
+            Center(
+              child: MaterialButton(
+                minWidth: MediaQuery.of(context).size.width*.95,
+                height: 40,
+                onPressed: (){},
+                child: RichText(
+                  text: TextSpan(
+                      children: [
+                        TextSpan(text: "View All "),
+                        TextSpan(text: "To-do List", style: TextStyle(fontWeight: FontWeight.bold))
+                      ],
+                    style: TextStyle(color: LSHBlackColor, fontSize: 18)
+
+                  ),
+                ),
+                color: accentColor,
               ),
             ),
             Container(
-              height: 280,
               width: MediaQuery.of(context).size.width,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Padding(
                     padding: const EdgeInsets.all(12),
-                    child: Text(
-                      "CATEGORIES",
-                      style: TextStyle(fontSize: 20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Text(
+                          "CATEGORIES",
+                          style: TextStyle(fontSize: 20, color: LSHBlackColor),
+                        ),
+                        Text(
+                          "View all",
+                          style: TextStyle(fontSize: 20, color: LSHBlackColor),
+                        ),
+                      ],
                     ),
                   ),
                   Container(
@@ -314,6 +334,9 @@ class ContentPage extends StatelessWidget {
                         );
                       },
                     ),
+                  ),
+                  SizedBox(
+                    height: 50,
                   )
                 ],
               ),
@@ -452,9 +475,10 @@ class ReflectionHeader extends StatelessWidget {
               Text(
                 "Go to Diary",
                 style: TextStyle(
-                    color: Color(0xFFD51042),
+                    color: accentColor,
                     decoration: TextDecoration.underline,
-                    fontSize: 18),
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold),
               )
             ],
           ),

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:life_style_hub/models/reflection.dart';
 import 'package:life_style_hub/values/values.dart';
 
@@ -94,38 +95,51 @@ class ReflectionCard extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(top: 10, left: 10),
+          padding: const EdgeInsets.only(top: 10,),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              RichText(
-                text: TextSpan(children: [
-                  TextSpan(text: "QUOTE ON "),
-                  TextSpan(
-                      text: " ${reflection.keyword.toUpperCase()}", style: TextStyle(color: accentColor))
-                ], style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+              Padding(
+                padding:  EdgeInsets.only(left: 10),
+                child: RichText(
+                  text: TextSpan(children: [
+                    TextSpan(text: "QUOTE ON ", style: TextStyle(color: LSHBlackColor)),
+                    TextSpan(
+                        text: " ${reflection.keyword.toUpperCase()}", style: TextStyle(color: accentColor))
+                  ], style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                ),
               ),
               SizedBox(
                 height: 8,
               ),
-              Text(
-                "${reflection.date}",
-                style: TextStyle(letterSpacing: 2),
+              Padding(
+                padding: EdgeInsets.only(left: 10),
+                child: Text(
+                  "${reflection.date}",
+                  style: TextStyle(letterSpacing: 2, color: LSHBlackColor),
+                ),
               ),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  mainAxisSize: MainAxisSize.max,
-                  children: <Widget>[
-                    FlatButton(
-                      onPressed: () {},
-                      child: Text(
-                        "View all",
-                        style: TextStyle(color: accentColor, fontSize: 16),
+              Padding(
+                padding: EdgeInsets.only(top: 10),
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      CallToAction(
+                        title: "Call",
                       ),
-                    )
-                  ],
+                      CallToAction(
+                        title: "Follow-up",
+                      ),
+                      CallToAction(
+                        title: "Write",
+                      ),
+                      CallToAction(
+                        title: "Visit",
+                      )
+                    ],
+                  ),
                 ),
               )
             ],
@@ -133,6 +147,33 @@ class ReflectionCard extends StatelessWidget {
         ),
 
       ],
+    );
+  }
+}
+
+class CallToAction extends StatelessWidget {
+  final String title;
+  const CallToAction({
+    Key key, this.title,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 80,
+      width: 80,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Text("To", style: TextStyle(color: LSHBlackColor),),
+          Text(title, style: TextStyle(color: LSHBlackColor, fontWeight: FontWeight.bold),),
+        ],
+      ),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        border: Border.all(color: LSHBlackColor, width: 1, style: BorderStyle.solid),
+        borderRadius: BorderRadius.circular(10)
+      ),
     );
   }
 }

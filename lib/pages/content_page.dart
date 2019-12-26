@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:life_style_hub/pages/audios_page.dart';
 import 'package:life_style_hub/pages/videos_page.dart';
@@ -74,7 +75,7 @@ class _ContentsPageState extends State<ContentsPage> {
           _pageController.jumpToPage(page);
         },
         child: Container(
-          child: Center(child: Text(title)),
+          child: Center(child: Text(title, style: TextStyle(color: LSHBlackColor),)),
           decoration: BoxDecoration(
               border: Border(
                   bottom: BorderSide(
