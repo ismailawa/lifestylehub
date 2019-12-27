@@ -42,19 +42,19 @@ class _LandingPageState extends State<LandingPage> {
         data: Theme.of(context).copyWith(canvasColor: Colors.transparent),
         child: Drawer(
           child: Padding(
-            padding: const EdgeInsets.only(top: 40, bottom: 40),
+            padding: const EdgeInsets.only(left: 20),
             child: Container(
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(40),
-                    bottomRight: Radius.circular(40)),
-                color: Color(0xFF353A50),
+                color: backgroundColor,
               ),
               child: Padding(
                 padding: const EdgeInsets.only(top: 40),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
+                    SizedBox(
+                      height: 20,
+                    ),
                     DrawerHeader(),
                     SizedBox(
                       height: 20,
@@ -166,10 +166,7 @@ class _LandingPageState extends State<LandingPage> {
                               width: 200,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(20),
-                                  gradient: LinearGradient(colors: [
-                                    Colors.black,
-                                    Color(0xFFA2163B)
-                                  ])),
+                                  color: accentColor),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
@@ -285,18 +282,16 @@ class ContentPage extends StatelessWidget {
                     })),
             Center(
               child: MaterialButton(
-                minWidth: MediaQuery.of(context).size.width*.95,
+                minWidth: MediaQuery.of(context).size.width * .95,
                 height: 40,
-                onPressed: (){},
+                onPressed: () {},
                 child: RichText(
-                  text: TextSpan(
-                      children: [
-                        TextSpan(text: "View All "),
-                        TextSpan(text: "To-do List", style: TextStyle(fontWeight: FontWeight.bold))
-                      ],
-                    style: TextStyle(color: LSHBlackColor, fontSize: 18)
-
-                  ),
+                  text: TextSpan(children: [
+                    TextSpan(text: "View All "),
+                    TextSpan(
+                        text: "To-do List",
+                        style: TextStyle(fontWeight: FontWeight.bold))
+                  ], style: TextStyle(color: LSHBlackColor, fontSize: 18)),
                 ),
                 color: accentColor,
               ),
@@ -365,7 +360,7 @@ class DrawerHeader extends StatelessWidget {
             decoration: BoxDecoration(
                 color: Colors.white10,
                 border: Border.all(
-                  color: Colors.white,
+                  color: LSHBlackColor,
                   width: 2,
                   style: BorderStyle.solid,
                 ),
@@ -378,11 +373,12 @@ class DrawerHeader extends StatelessWidget {
               children: <Widget>[
                 Text(
                   "Tunde Burby!",
-                  style: TextStyle(
-                    fontSize: 20,
-                  ),
+                  style: TextStyle(fontSize: 20, color: LSHBlackColor),
                 ),
-                Text("gold.oni@gmail.com"),
+                Text(
+                  "gold.oni@gmail.com",
+                  style: TextStyle(color: LSHBlackColor),
+                ),
                 Padding(
                   padding: const EdgeInsets.only(left: 15),
                   child: MaterialButton(
@@ -432,7 +428,10 @@ class DrawerTiles extends StatelessWidget {
             ),
             Text(
               title,
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w200),
+              style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.normal,
+                  color: LSHBlackColor),
             )
           ],
         ),
