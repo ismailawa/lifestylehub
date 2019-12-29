@@ -57,7 +57,7 @@ class _LandingPageState extends State<LandingPage> {
                     ),
                     DrawerHeader(),
                     SizedBox(
-                      height: 20,
+                      height: 15,
                     ),
                     DrawerTiles(
                       onPress: () {
@@ -324,8 +324,13 @@ class ContentPage extends StatelessWidget {
                       scrollDirection: Axis.horizontal,
                       itemCount: categories.length,
                       itemBuilder: (context, index) {
-                        return CategoryCard(
-                          category: categories[index],
+                        return InkWell(
+                          onTap: (){
+                            Navigator.of(context).pushNamed("cat-view");
+                          },
+                          child: CategoryCard(
+                            category: categories[index],
+                          ),
                         );
                       },
                     ),
@@ -352,7 +357,7 @@ class DrawerHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(left: 30),
-      child: Row(
+      child: Column(
         children: <Widget>[
           Container(
             height: 90,
@@ -415,7 +420,7 @@ class DrawerTiles extends StatelessWidget {
     return InkWell(
       onTap: onPress,
       child: Padding(
-        padding: const EdgeInsets.only(left: 30, top: 10),
+        padding: const EdgeInsets.only(left: 30, top: 5),
         child: Row(
           children: <Widget>[
             Icon(

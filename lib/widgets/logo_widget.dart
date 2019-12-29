@@ -9,16 +9,16 @@ class Logo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 30),
+      padding: const EdgeInsets.only(bottom: 40),
       child: Container(
         height: 110,
         width: 110,
         decoration: BoxDecoration(color: logoBg, shape: BoxShape.circle),
         child: Center(
             child: Text(
-              "LOGO",
-              style: TextStyle(fontSize: 30),
-            )),
+          "LOGO",
+          style: TextStyle(fontSize: 30),
+        )),
       ),
     );
   }

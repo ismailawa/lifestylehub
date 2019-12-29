@@ -39,7 +39,10 @@ class _LoginPageState extends State<LoginPage> {
                   },
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 30),
-                    child: Text("Forget Your Password?"),
+                    child: Text(
+                      "Forget Your Password?",
+                      style: TextStyle(color: LSHBlackColor),
+                    ),
                   ),
                 ),
                 MaterialButton(
@@ -118,15 +121,18 @@ class _LoginPageState extends State<LoginPage> {
   Padding customTextFormField(String hint, IconData icon,
       {bool hideText = false}) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 5),
-      child: TextFormField(
-        obscureText: hideText,
-        decoration: InputDecoration(
-            border: InputBorder.none,
-            fillColor: inputBackgroundColor,
-            filled: true,
-            prefixIcon: Icon(icon),
-            hintText: hint),
+      padding: EdgeInsets.symmetric(vertical: 5),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(5),
+        child: TextFormField(
+          obscureText: hideText,
+          decoration: InputDecoration(
+              border: InputBorder.none,
+              fillColor: inputBackgroundColor,
+              filled: true,
+              prefixIcon: Icon(icon),
+              hintText: hint),
+        ),
       ),
     );
   }

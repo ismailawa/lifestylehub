@@ -53,7 +53,7 @@ class MessagesState extends State<Messages> {
                   style: TextStyle(
                     fontWeight: FontWeight.w400,
                     fontSize: 40.0,
-                    color: Colors.white,
+                    color: LSHBlackColor,
                   ),
                 ),
               ]),
