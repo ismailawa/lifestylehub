@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:life_style_hub/values/values.dart';
@@ -61,10 +62,9 @@ class _AuthorViewState extends State<AuthorView> {
             ],
             flexibleSpace: FlexibleSpaceBar(
               centerTitle: true,
-              title:  Text(
+              title: Text(
                 "Jony Blake",
-                style: TextStyle(
-                    fontSize: 22, fontWeight: FontWeight.w600),
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
               ),
               collapseMode: CollapseMode.parallax,
               background: Stack(
@@ -83,7 +83,6 @@ class _AuthorViewState extends State<AuthorView> {
                             end: Alignment.bottomCenter,
                             colors: [Colors.transparent, Colors.black])),
                   ),
-
                 ],
               ),
             ),
@@ -128,116 +127,134 @@ class _AuthorViewState extends State<AuthorView> {
                 controller: _pageController,
                 scrollDirection: Axis.horizontal,
                 children: <Widget>[
-                  InkWell(
-                    onTap: () {
-                      Navigator.of(context).pushNamed("author-view");
-                    },
-                    child: Container(
-                      color: Colors.red,
-                      height: 50,
-                    ),
-                  ),
-                  ListView.builder(
+                  SingleChildScrollView(
                     scrollDirection: Axis.vertical,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.only(
-                          left: 15,right: 15, bottom: 20
-                        ),
-                        child: Container(
-                          child: Padding(
-                            padding: const EdgeInsets.all(16),
-                            child: Column(
-                              children: <Widget>[
-                                Row(
-                                  children: <Widget>[
-                                    ClipRRect(
-                                      borderRadius: BorderRadius.circular(25),
-                                      child: Container(
-                                        height: 50,
-                                        width: 50,
-                                        decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          image: DecorationImage(
-                                            image: AssetImage("assets/images/p1.jpg"),
-                                            fit: BoxFit.cover
-                                          )
-                                        ),
+                    child: Padding(
+                      padding:
+                          const EdgeInsets.only(left: 15, right: 15, top: 10),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Container(
+                            decoration: BoxDecoration(
+                                color: LSHBlackColor,
+                                borderRadius: BorderRadius.circular(10)),
+                            child: Padding(
+                              padding: const EdgeInsets.all(16),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      Text(
+                                        "Leadership",
+                                        style: TextStyle(fontSize: 28),
                                       ),
-                                    ),
-                                    SizedBox(
-                                      width: 15,
-                                    ),
-                                    Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: <Widget>[
-                                        Text("Jony Blake", style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 18
-                                        ),),
-                                        Text("1 hour ago",style: TextStyle(
-                                            color: Colors.black54,
-
-                                        ),),
-                                      ],
-                                    ),
-
-                                  ]
-                                ),
-                                SizedBox(height: 15,),
-                                Text("Your success and happiness lies in you. Resolve to keep happy, and your joy and you shall form an invincible host against difficulties. The sweetest of all sounds is praise", style: TextStyle(
-                                    color: Colors.black54,
-                                    fontSize: 16
-                                ), textAlign: TextAlign.center,),
-                                SizedBox(height: 10,),
-                                Divider(
-                                  thickness: 1,
-                                  color: Colors.black26,
-                                ),
-                                Row(
-                                  children: <Widget>[
-                                    IconButton(
-                                      onPressed: (){},
-                                      icon: Icon(Icons.share),
-                                      color: LSHBlackColor,
-                                    ),
-                                    Expanded(
-                                      child: Container(),
-                                    ),
-                                    Row(
-                                      children: <Widget>[
-                                        Text("256", style: TextStyle(color: LSHBlackColor),),
-                                        IconButton(
-                                          onPressed: (){},
-                                          icon: Icon(Icons.comment),
-                                          color: LSHBlackColor,
+                                      SizedBox(
+                                        height: 8,
+                                      ),
+                                      Text(
+                                        "Expert Trainer",
+                                        style: TextStyle(fontSize: 16),
+                                      ),
+                                      SizedBox(
+                                        height: 8,
+                                      ),
+                                      Text(
+                                        "20 years",
+                                        style: TextStyle(fontSize: 16),
+                                      ),
+                                    ],
+                                  ),
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: <Widget>[
+                                      MaterialButton(
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10)),
+                                        minWidth: 120,
+                                        onPressed: () {},
+                                        child: Text(
+                                          "FOLLOW",
+                                          style: TextStyle(color: Colors.black),
                                         ),
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      width: 20,
-                                    ),
-                                    Row(
-                                      children: <Widget>[
-                                        Text("4 K", style: TextStyle(color: LSHBlackColor),),
-                                        IconButton(
-                                          onPressed: (){},
-                                          icon: Icon(Icons.favorite_border),
-                                          color: LSHBlackColor,
+                                        color: Colors.white,
+                                      ),
+                                      MaterialButton(
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10)),
+                                        minWidth: 120,
+                                        onPressed: () {},
+                                        child: Text(
+                                          "SUBSCRIBE",
+                                          style: TextStyle(color: Colors.black),
                                         ),
-                                      ],
-                                    )
-                                  ],
-                                )
-                              ],
+                                        color: accentColor,
+                                      )
+                                    ],
+                                  )
+                                ],
+                              ),
                             ),
                           ),
-                          decoration: BoxDecoration(color: accentColor,borderRadius: BorderRadius.circular(10)),
-                        ),
-                      );
-                    },
-                    itemCount: 60,
+
+                          Padding(
+                            padding: const EdgeInsets.only(top: 15),
+                            child: Text(
+                              "John blake has trained over 50,000 students in the past 20 years. He has written a lot of books in leadership, management and entrepreneurship. With a masters in phycology and PhD in cognitive science.he has gotten more awards than any trainer in his time.",
+                              style: TextStyle(color: LSHBlackColor, fontSize: 16),
+                            ),
+                          ),
+
+                          Padding(
+                            padding: const EdgeInsets.only(top: 15),
+                            child: Container(
+                              height: 200,
+                              decoration: BoxDecoration(
+                                color: LSHBlackColor,
+                                borderRadius: BorderRadius.circular(10)
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(top: 15, bottom: 15),
+                            child: Container(
+                              height: 250,
+                              decoration: BoxDecoration(
+                                color: Colors.grey,
+                                borderRadius: BorderRadius.circular(15)
+                              ),
+                            ),
+                          ),
+
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text("Lessons", style: TextStyle(color: LSHBlackColor, fontSize: 20),),
+                              Container(
+                                width: MediaQuery.of(context).size.width,
+                                height: 200,
+                                child: ListView.builder(
+                                    itemBuilder: (context, index){
+                                  return Container(
+
+                                  );
+                                },
+                                  itemCount: 5,
+                                ),
+                              )
+                            ],
+                          )
+
+                        ],
+                      ),
+                    ),
                   ),
+                  buildListView(),
                 ],
               ),
             )
@@ -245,6 +262,16 @@ class _AuthorViewState extends State<AuthorView> {
         ),
       ),
     ));
+  }
+
+  ListView buildListView() {
+    return ListView.builder(
+      scrollDirection: Axis.vertical,
+      itemBuilder: (context, index) {
+        return AuthorCard();
+      },
+      itemCount: 60,
+    );
   }
 
   Flexible tabHeaderBtn(String title, bool isActive, int page) {
@@ -270,6 +297,118 @@ class _AuthorViewState extends State<AuthorView> {
             color: selectedPage == page ? accentColor : Color(0xFF121922),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class AuthorCard extends StatelessWidget {
+  const AuthorCard({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 15, right: 15, bottom: 20),
+      child: Container(
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            children: <Widget>[
+              Row(children: <Widget>[
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(25),
+                  child: Container(
+                    height: 50,
+                    width: 50,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        image: DecorationImage(
+                            image: AssetImage("assets/images/p1.jpg"),
+                            fit: BoxFit.cover)),
+                  ),
+                ),
+                SizedBox(
+                  width: 15,
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      "Jony Blake",
+                      style: TextStyle(color: Colors.black, fontSize: 18),
+                    ),
+                    Text(
+                      "1 hour ago",
+                      style: TextStyle(
+                        color: Colors.black54,
+                      ),
+                    ),
+                  ],
+                ),
+              ]),
+              SizedBox(
+                height: 15,
+              ),
+              Text(
+                "Your success and happiness lies in you. Resolve to keep happy, and your joy and you shall form an invincible host against difficulties. The sweetest of all sounds is praise",
+                style: TextStyle(color: Colors.black54, fontSize: 16),
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Divider(
+                thickness: 1,
+                color: Colors.black26,
+              ),
+              Row(
+                children: <Widget>[
+                  IconButton(
+                    onPressed: () {},
+                    icon: Icon(Icons.share),
+                    color: LSHBlackColor,
+                  ),
+                  Expanded(
+                    child: Container(),
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Text(
+                        "256",
+                        style: TextStyle(color: LSHBlackColor),
+                      ),
+                      IconButton(
+                        onPressed: () {},
+                        icon: Icon(Icons.comment),
+                        color: LSHBlackColor,
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    width: 20,
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Text(
+                        "4 K",
+                        style: TextStyle(color: LSHBlackColor),
+                      ),
+                      IconButton(
+                        onPressed: () {},
+                        icon: Icon(Icons.favorite_border),
+                        color: LSHBlackColor,
+                      ),
+                    ],
+                  )
+                ],
+              )
+            ],
+          ),
+        ),
+        decoration: BoxDecoration(
+            color: accentColor, borderRadius: BorderRadius.circular(10)),
       ),
     );
   }

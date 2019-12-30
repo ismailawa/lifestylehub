@@ -91,7 +91,7 @@ class _ReflectionsPageState extends State<ReflectionsPage> {
           _pageController.jumpToPage(page);
         },
         child: Container(
-          child: Center(child: Text(title)),
+          child: Center(child: Text(title,style: TextStyle(color: LSHBlackColor),)),
           decoration: BoxDecoration(
               border: Border(
                   bottom: BorderSide(
