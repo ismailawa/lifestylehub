@@ -5,6 +5,7 @@ import 'package:life_style_hub/pages/category_view.dart';
 import 'package:life_style_hub/pages/forget_password_page.dart';
 import 'package:life_style_hub/pages/landing_page.dart';
 import 'package:life_style_hub/pages/login_page.dart';
+import 'package:life_style_hub/pages/pages.dart';
 import 'package:life_style_hub/pages/registration_page.dart';
 
 class RouteGenerator {
@@ -12,13 +13,15 @@ class RouteGenerator {
     final args = settings.arguments;
 
     switch (settings.name) {
-      case 'login':
+      case '/':
+        return MaterialPageRoute(builder: (_) => SplashScreen());
+      case '/login':
         return MaterialPageRoute(builder: (_) => LoginPage());
-      case 'register':
+      case '/register':
         return MaterialPageRoute(builder: (_) => RegisterPage());
-      case 'forget':
+      case '/forgotpassword':
         return MaterialPageRoute(builder: (_) => ForgetPasswordPage());
-      case 'landing-page':
+      case '/landing':
         return MaterialPageRoute(builder: (_) => LandingPage());
       case 'cat-view':
         return MaterialPageRoute(builder: (_) => CategoryView());

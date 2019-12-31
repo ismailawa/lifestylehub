@@ -1,23 +1,49 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+import 'package:life_style_hub/bloc/Reflections.dart';
+import 'package:life_style_hub/helpers/helper.dart';
 import 'package:life_style_hub/models/category.dart';
 import 'package:life_style_hub/models/reflection.dart';
 import 'package:life_style_hub/pages/Messages.dart';
 import 'package:life_style_hub/pages/content_page.dart';
+import 'package:life_style_hub/pages/login_page.dart';
 import 'package:life_style_hub/pages/reflection_page.dart';
+import 'package:life_style_hub/providers/repository_provider.dart';
 import 'package:life_style_hub/values/colors.dart';
+import 'package:life_style_hub/values/values.dart';
 import 'package:life_style_hub/widgets/category_card.dart';
 import 'package:life_style_hub/widgets/reflection_card.dart';
 
 class LandingPage extends StatefulWidget {
+  static const routeName = SCREEN_LANDING;
   @override
   _LandingPageState createState() => _LandingPageState();
 }
 
 class _LandingPageState extends State<LandingPage> {
-  GlobalKey<ScaffoldState> _scaffoldKey;
+  final GlobalKey<ScaffoldState> _ScaffoldKey = new GlobalKey<ScaffoldState>();
+  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = new GlobalKey<RefreshIndicatorState>();
+  final _repository = RepositoryProvider().provideRepository();
+  ReflectionBloc bloc;
+
+
+  String fullNames = "";
+  String email = "";
+
   PageController _controller;
+
+  _LandingPageState(){
+    _initValues();
+  }
+
+  _initValues() async{
+    fullNames = await _repository.getName();
+    email = await _repository.getEmail();
+
+    //print("full names: $fullNames");
+  }
+
   List<Widget> pages = [
     ContentPage(), //0
     ReflectionsPage(), //1
@@ -26,18 +52,35 @@ class _LandingPageState extends State<LandingPage> {
   ];
 
   @override
-  void initState() {
-    _scaffoldKey = GlobalKey<ScaffoldState>();
-    _controller = PageController();
+  void initState(){
     super.initState();
+    bloc = ReflectionBloc(_repository);
+    _controller = PageController();
+    //bloc.getReflectionList();
+
+    WidgetsBinding.instance
+        .addPostFrameCallback((_) {
+      setState(() {
+        fullNames;
+        email;
+      });
+      _refreshIndicatorKey.currentState.show();
+    });
+
+  }
+
+  Future<void> _refresh() async{
+    _initValues();
+    bloc.getReflectionList();
+    //return null;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: _scaffoldKey,
+      key: _ScaffoldKey,
       backgroundColor: backgroundColor,
-      appBar: customAppBar(_scaffoldKey),
+      appBar: customAppBar(_ScaffoldKey),
       drawer: Theme(
         data: Theme.of(context).copyWith(canvasColor: Colors.transparent),
         child: Drawer(
@@ -156,7 +199,10 @@ class _LandingPageState extends State<LandingPage> {
                     Padding(
                       padding: const EdgeInsets.only(top: 20),
                       child: MaterialButton(
-                        onPressed: () {},
+                        onPressed: ()  async {
+                          await _repository.clear();
+                          loginScreen();
+                        },
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20)),
                         child: Row(
@@ -173,7 +219,7 @@ class _LandingPageState extends State<LandingPage> {
                                   Text("Logout"),
                                   SizedBox(
                                     width: 10,
-                                  ),
+                                   ),
                                   Icon(Icons.exit_to_app)
                                 ],
                               ),
@@ -195,6 +241,8 @@ class _LandingPageState extends State<LandingPage> {
         children: pages,
       ),
     );
+
+
   }
 
   AppBar customAppBar(GlobalKey<ScaffoldState> key) {
@@ -251,6 +299,9 @@ class _LandingPageState extends State<LandingPage> {
         ),
       ],
     );
+  }
+  void loginScreen(){
+    NavigatorHelper(_ScaffoldKey.currentState.context).showTopScreenPage(LoginPage.routeName, null);
   }
 }
 
@@ -349,9 +400,15 @@ class ContentPage extends StatelessWidget {
 }
 
 class DrawerHeader extends StatelessWidget {
+  final String name;
+  final String email;
+
   const DrawerHeader({
     Key key,
-  }) : super(key: key);
+    this.name,
+    this.email
+  })
+ : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -377,11 +434,11 @@ class DrawerHeader extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  "Tunde Burby!",
+                  "$name",
                   style: TextStyle(fontSize: 20, color: LSHBlackColor),
                 ),
                 Text(
-                  "gold.oni@gmail.com",
+                  "$email",
                   style: TextStyle(color: LSHBlackColor),
                 ),
                 Padding(

@@ -4,8 +4,8 @@ import 'package:life_style_hub/values/values.dart';
 import 'package:life_style_hub/widgets/logo_widget.dart';
 import 'package:life_style_hub/widgets/social_media_icon.dart';
 
-
 class ForgetPasswordPage extends StatefulWidget {
+  static const routeName = SCREEN_FORGOT_PASSWORD;
   @override
   _ForgetPasswordPageState createState() => _ForgetPasswordPageState();
 }
@@ -26,9 +26,10 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Logo(),
-                customTextFormField("email address", MaterialCommunityIcons.account),
+                customTextFormField(
+                    "email address", MaterialCommunityIcons.account),
                 Padding(
-                  padding: const EdgeInsets.only( top: 40),
+                  padding: const EdgeInsets.only(top: 40),
                   child: MaterialButton(
                     onPressed: () {},
                     child: Text("SUBMIT"),
@@ -65,9 +66,15 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
-                    SocialMediaIcon(icon: MaterialCommunityIcons.facebook,),
-                    SocialMediaIcon(icon: MaterialCommunityIcons.twitter,),
-                    SocialMediaIcon(icon: MaterialCommunityIcons.google_plus,)
+                    SocialMediaIcon(
+                      icon: MaterialCommunityIcons.facebook,
+                    ),
+                    SocialMediaIcon(
+                      icon: MaterialCommunityIcons.twitter,
+                    ),
+                    SocialMediaIcon(
+                      icon: MaterialCommunityIcons.google_plus,
+                    )
                   ],
                 )
               ],
@@ -76,7 +83,6 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
         ),
       ),
     );
-
   }
 
   Padding optionalDivider() {
@@ -94,14 +100,16 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
             height: 50,
             width: 50,
             decoration:
-            BoxDecoration(shape: BoxShape.circle, color: backgroundColor),
+                BoxDecoration(shape: BoxShape.circle, color: backgroundColor),
             child: Center(child: Text("Or")),
           )
         ],
       ),
     );
   }
-  Padding customTextFormField(String hint, IconData icon, {bool hideText=false}) {
+
+  Padding customTextFormField(String hint, IconData icon,
+      {bool hideText = false}) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5),
       child: TextFormField(

@@ -13,7 +13,7 @@ class LifeStyleApp extends StatelessWidget {
       darkTheme: ThemeData(
         backgroundColor: backgroundColor,
       ),
-      initialRoute: 'login',
+      initialRoute: '/',
       onGenerateRoute: RouteGenerator.generateRoutes,
     );
   }

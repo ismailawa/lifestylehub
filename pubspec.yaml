@@ -22,6 +22,28 @@ dependencies:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
+
+  http:
+  json_annotation:
+  shared_preferences:
+  rxdart: # Dart reactive functional programming library
+  dio: # a networking library
+  path_provider: # Flutter plugin for finding commonly used locations on the filesystem. Supports iOS and Android.
+  line_awesome_icons: #for line awesome icons
+  image_picker: #for image picking from storage
+  progress_dialog:
+  sqflite:
+  path:
+  toast:
+  intl: # Library for internationalized/localized messages, date and number formatting
+  flutter_spinkit: # progress bar and loading animations
+  kiwi:
+  random_color:
+  moor_flutter:
+  provider:
+  flutter_colorpicker:
+  flutter_local_notifications:
+  flare_flutter:
   cupertino_icons: ^0.1.2
   flutter_screenutil: ^0.7.0
   flutter_vector_icons: ^0.2.1
@@ -32,6 +54,8 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons:
+  logger:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -45,16 +69,8 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/images/cat1.jpg
-    - assets/images/cat2.jpg
-    - assets/images/cat3.jpeg
-    - assets/images/p1.jpg
-    - assets/images/p2.jpg
-    - assets/images/p3.jpg
-    - assets/videos/video.mp4
-    - assets/videos/video1.mp4
-    - assets/videos/default.mp4
-    - assets/audios/audio.mp3
+    - assets/images/
+    - assets/videos/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
   # For details regarding adding assets from package dependencies, see
