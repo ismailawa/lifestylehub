@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:life_style_hub/models/reflection.dart';
+import 'package:life_style_hub/model/model.dart';
+import 'package:life_style_hub/utils/dateutils.dart';
 import 'package:life_style_hub/values/values.dart';
 
 
@@ -13,140 +14,111 @@ class ReflectionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Container(
-          height: 165,
-          width: MediaQuery.of(context).size.width * .98,
-          color: Colors.black,
-          child: Stack(
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(top: 8, left: 8, bottom: 25),
-                child: Flex(
-                  direction: Axis.horizontal,
-                  children: <Widget>[
-                    Flexible(
-                      flex: 3,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          image: DecorationImage(image: ExactAssetImage(reflection.imageUrl),fit: BoxFit.cover)
-                        ),
-                      ),
-                    ),
-                    Flexible(
-                      flex: 6,
-                      child: Container(
-                        color: Colors.black,
-                        child: Padding(
-                          padding: const EdgeInsets.only(
-                              top: 15, left: 10, right: 10),
-                          child: Column(
-                            children: <Widget>[
-                              Text(
-                                reflection.content,
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontSize: 12,
-                                    fontStyle: FontStyle.italic,
-                                    letterSpacing: 1),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 10),
-                                child: Text("- ${reflection.author} -"),
-                              ),
-                              Expanded(
-                                child: Container(),
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: <Widget>[
-                                  Text(
-                                    reflection.domain,
-                                    style: TextStyle(fontSize: 10),
-                                  )
-                                ],
-                              )
-                            ],
+    return Padding(
+
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Container(
+            height: 220,
+            width: MediaQuery.of(context).size.width * .98,
+            color: Colors.black,
+            child: Stack(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.only(top: 8, left: 8, bottom: 25),
+                  child: Flex(
+                    direction: Axis.horizontal,
+                    children: <Widget>[
+                      Flexible(
+                        flex: 3,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            image: DecorationImage(image: NetworkImage("http://myacademyhub.s3.amazonaws.com/images/${reflection.imageLink}"),fit: BoxFit.cover)
                           ),
                         ),
                       ),
-                    )
-                  ],
-                ),
-              ),
-              Positioned(
-                bottom: 10,
-                left: 30,
-                child: MaterialButton(
-                  onPressed: () {},
-                  color: accentColor,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Text(
-                    "Listen",
-                    style: TextStyle(fontSize: 18),
-                  ),
-                ),
-              )
-            ],
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(top: 10,),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Padding(
-                padding:  EdgeInsets.only(left: 10),
-                child: RichText(
-                  text: TextSpan(children: [
-                    TextSpan(text: "QUOTE ON ", style: TextStyle(color: LSHBlackColor)),
-                    TextSpan(
-                        text: " ${reflection.keyword.toUpperCase()}", style: TextStyle(color: accentColor))
-                  ], style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                ),
-              ),
-              SizedBox(
-                height: 8,
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 10),
-                child: Text(
-                  "${reflection.date}",
-                  style: TextStyle(letterSpacing: 2, color: LSHBlackColor),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 10),
-                child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      CallToAction(
-                        title: "Call",
-                      ),
-                      CallToAction(
-                        title: "Follow-up",
-                      ),
-                      CallToAction(
-                        title: "Write",
-                      ),
-                      CallToAction(
-                        title: "Visit",
+                      Flexible(
+                        flex: 6,
+                        child: Container(
+                          color: Colors.black,
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                                top: 15, left: 10, right: 10),
+                            child: Column(
+                              children: <Widget>[
+                                Text(
+                                  reflection.content.substring(0, 200),
+                                  textAlign: TextAlign.start,
+                                  style: TextStyle(
+                                      fontSize: 12,
+                                      fontStyle: FontStyle.italic,
+                                      letterSpacing: 1),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 10),
+                                  child: Text("- ${reflection.author} -"),
+                                ),
+                                Expanded(
+                                  child: Container(),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
                       )
                     ],
                   ),
                 ),
-              )
-            ],
+                Positioned(
+                  bottom: 10,
+                  left: 30,
+                  child: MaterialButton(
+                    onPressed: () {},
+                    color: accentColor,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Text(
+                      "Listen",
+                      style: TextStyle(fontSize: 18),
+                    ),
+                  ),
+                )
+              ],
+            ),
           ),
-        ),
+          Padding(
+            padding: const EdgeInsets.only(top: 10,),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Padding(
+                  padding:  EdgeInsets.only(left: 10),
+                  child: RichText(
+                    text: TextSpan(children: [
+                      TextSpan(text: "REFLECTION: ", style: TextStyle(color: LSHBlackColor)),
+                      TextSpan(
+                          text: " ${reflection.title.substring(0, 20)}...", style: TextStyle(color: accentColor))
+                    ], style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                  ),
+                ),
+                SizedBox(
+                  height: 8,
+                ),
+                Padding(
+                  padding: EdgeInsets.only(left: 10),
+                  child: Text(DateAndTimeUtil.dayMonthYearFormat('${reflection.createdAt}'),
+                    style: TextStyle(letterSpacing: 2, color: LSHBlackColor),
+                  ),
+                ),
+              ],
+            ),
+          ),
 
-      ],
+        ],
+      ),
     );
   }
 }

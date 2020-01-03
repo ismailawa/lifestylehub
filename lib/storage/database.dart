@@ -19,6 +19,7 @@ class DatabaseManager {
   final String TABLE_REQUESTS = "requests";
   final String TABLE_TODO = "todo";
   final String TABLE_REMINDER = "reminder";
+  final String TABLE_USERS = "users";
 
   //final String TABLE_LANGUAGE = "";
 
@@ -94,10 +95,25 @@ class DatabaseManager {
         KEY_CREATED_AT +
         " TEXT" +
         ")";
+    String CREATE_USERS_TABLE = "CREATE TABLE " +
+        TABLE_USERS +
+        "(" +
+        KEY_ID +
+        " INTEGER NOT NULL," +
+        KEY_FIRST_NAME +
+        " TEXT," +
+        KEY_LAST_NAME +
+        " TEXT," +
+        KEY_EMAIL +
+        " TEXT," +
+        KEY_PASSWORD +
+        " TEXT, " +
+        ")";
 
     await db.execute(CREATE_REFLECTION_TABLE);
     await db.execute(CREATE_TODO_TABLE);
     await db.execute(CREATE_REMINDER_TABLE);
+    await db.execute(CREATE_USERS_TABLE);
   }
 
   Future<bool> isReflection(Reflection reflection) async {
@@ -250,7 +266,16 @@ class DatabaseManager {
     return await dbClient
         .delete(TABLE_REMINDER, where: '$KEY_ID = ?', whereArgs: [task.id]);
   }
+  Future<int>registerUser(User user)async{
+    var dbClient = await db;
+    return  dbClient.insert(TABLE_USERS, user.toJson());
+  }
 
+//
+//  Future<User>loginUser(String email, String password) async{
+//    var dbClient = await db;
+//    dbClient.query(TABLE_USERS,)
+//  }
   Future close() async {
     var dbClient = await db;
     return dbClient.close();

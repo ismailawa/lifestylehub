@@ -35,6 +35,7 @@ class ApiProvider {
   }
 
   Future<DefaultResponse> register(User userObj) async {
+    print(DEFAULT_USER_ROLE);
     var requestBody = <String, dynamic>{
       KEY_FIRST_NAME: userObj.firstName,
       KEY_LAST_NAME: userObj.lastName,

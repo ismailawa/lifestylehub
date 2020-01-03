@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:life_style_hub/models/reflection.dart';
+import 'package:life_style_hub/model/reflection.dart';
 
 class MediaCard extends StatelessWidget {
   final Reflection reflection;
@@ -13,7 +13,7 @@ class MediaCard extends StatelessWidget {
     return Container(
         decoration: BoxDecoration(
             image: DecorationImage(
-                image: ExactAssetImage("${reflection.imageUrl}"),
+                image: ExactAssetImage("${reflection.imageLink}"),
                 fit: BoxFit.cover),
             color: Colors.lightBlue,
             borderRadius: BorderRadius.circular(10)),

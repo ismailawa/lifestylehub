@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
-import 'package:life_style_hub/models/reflection.dart';
 import 'package:life_style_hub/values/values.dart';
 
 class CategoryView extends StatefulWidget {
@@ -219,36 +218,37 @@ class AuthorsCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         color: Colors.white,
-        child: GridView.builder(
-          scrollDirection: Axis.vertical,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3,
-              childAspectRatio: 1,
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10),
-          itemCount: reflections.length,
-          itemBuilder: (context, index) {
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              mainAxisSize: MainAxisSize.max,
-              children: <Widget>[
-                ClipRRect(
-                  child: Container(
-                    child: Image.asset(
-                      reflections[index].imageUrl,
-                      fit: BoxFit.fitHeight,
-                    ),
-                    height: 100,
-                  ),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                Text(
-                  reflections[index].author,
-                  style: TextStyle(color: Colors.black87),
-                )
-              ],
-            );
-          },
-        ));
+//        child: GridView.builder(
+//          scrollDirection: Axis.vertical,
+//          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+//              crossAxisCount: 3,
+//              childAspectRatio: 1,
+//              crossAxisSpacing: 10,
+//              mainAxisSpacing: 10),
+//          itemCount: reflections.length,
+//          itemBuilder: (context, index) {
+//            return Column(
+//              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//              mainAxisSize: MainAxisSize.max,
+//              children: <Widget>[
+//                ClipRRect(
+//                  child: Container(
+//                    child: Image.asset(
+//                      reflections[index].imageUrl,
+//                      fit: BoxFit.fitHeight,
+//                    ),
+//                    height: 100,
+//                  ),
+//                  borderRadius: BorderRadius.circular(10),
+//                ),
+//                Text(
+//                  reflections[index].author,
+//                  style: TextStyle(color: Colors.black87),
+//                )
+//              ],
+//            );
+//          },
+//        )
+      );
   }
 }

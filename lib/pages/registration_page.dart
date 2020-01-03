@@ -260,7 +260,7 @@ class _RegisterPageState extends State<RegisterPage> {
     String email = emailController.text;
     String password = passwordController.text;
     String rpassword = retypepasswordController.text;
-    String role = DEFAULT_USER_ROLE;
+//    String role = DEFAULT_USER_ROLE;
 
     if (firstName.isEmpty) {
       showToast(ERR_EMAIL_REQUIRED);
@@ -304,14 +304,14 @@ class _RegisterPageState extends State<RegisterPage> {
     //user.role = role;
 
     pd = NavigatorHelper(_scaffoldKey.currentState.context).createProgressDialog(message: TEXT_LOADING);
-
+//    print("${user.password}");
     pd.show();
     var response = await _repository.register(user);
 
     showToast(response.toJson().toString());
 
-    if(response.isConnectionSuccessful()){
-      if(!response.isRequestSuccessful()){
+    if(response.statusCode == 200){
+      if(response.statusCode != 200){
         //user already exists, save the email address and take him to the mainscreen
         pd.hide();
         showToast(response.message);

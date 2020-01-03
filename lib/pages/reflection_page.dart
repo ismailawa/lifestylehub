@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:life_style_hub/models/reflection.dart';
 import 'package:life_style_hub/values/values.dart';
 
 class ReflectionsPage extends StatefulWidget {
@@ -68,16 +67,16 @@ class _ReflectionsPageState extends State<ReflectionsPage> {
     );
   }
 
-  List<Widget> nestedListBuilder() {
-    var views = [];
-    reflectionByMonths.forEach((month, reflections) {
-      views.add(Container(
-        child: Text(month),
-      ));
-    });
-
-    return views;
-  }
+//  List<Widget> nestedListBuilder() {
+//    var views = [];
+//    reflectionByMonths.forEach((month, reflections) {
+//      views.add(Container(
+//        child: Text(month),
+//      ));
+//    });
+//
+//    return views;
+//  }
 
   Flexible tabHeaderBtn(String title, bool isActive, int page) {
     return Flexible(

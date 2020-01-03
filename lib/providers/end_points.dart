@@ -1,4 +1,4 @@
-const BASE_API = "https://lshub.herokuapp.com/";
+const BASE_API = "https://lshub.herokuapp.com";
 const API_VERSION = "api/v1/";
 
 const ENDPOINT_LOGIN = "auth/login";

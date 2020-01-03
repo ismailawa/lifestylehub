@@ -1,6 +1,5 @@
 import 'package:chewie_audio/chewie_audio.dart';
 import 'package:flutter/material.dart';
-import 'package:life_style_hub/models/reflection.dart';
 import 'package:life_style_hub/values/values.dart';
 import 'package:life_style_hub/widgets/media_card.dart';
 import 'package:video_player/video_player.dart';
@@ -36,23 +35,23 @@ class _AudiosState extends State<Audios> {
             SizedBox(
               height: 10,
             ),
-            Expanded(
-              child: Container(
-                child: GridView.builder(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3,
-                      childAspectRatio: (0.8),
-                      crossAxisSpacing: 10,
-                      mainAxisSpacing: 10),
-                  itemBuilder: (context, index) {
-                    return MediaCard(
-                      reflection: reflections[index],
-                    );
-                  },
-                  itemCount: reflections.length,
-                ),
-              ),
-            )
+//            Expanded(
+//              child: Container(
+//                child: GridView.builder(
+//                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+//                      crossAxisCount: 3,
+//                      childAspectRatio: (0.8),
+//                      crossAxisSpacing: 10,
+//                      mainAxisSpacing: 10),
+//                  itemBuilder: (context, index) {
+//                    return MediaCard(
+//                      reflection: reflections[index],
+//                    );
+//                  },
+//                  itemCount: reflections.length,
+//                ),
+//              ),
+//            )
           ],
         ),
       ),

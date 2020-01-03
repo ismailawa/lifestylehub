@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:life_style_hub/bloc/Reflections.dart';
 import 'package:life_style_hub/helpers/helper.dart';
+import 'package:life_style_hub/model/model.dart';
 import 'package:life_style_hub/models/category.dart';
-import 'package:life_style_hub/models/reflection.dart';
 import 'package:life_style_hub/pages/Messages.dart';
 import 'package:life_style_hub/pages/content_page.dart';
 import 'package:life_style_hub/pages/login_page.dart';
@@ -22,10 +22,9 @@ class LandingPage extends StatefulWidget {
 }
 
 class _LandingPageState extends State<LandingPage> {
-  final GlobalKey<ScaffoldState> _ScaffoldKey = new GlobalKey<ScaffoldState>();
-  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = new GlobalKey<RefreshIndicatorState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   final _repository = RepositoryProvider().provideRepository();
-  ReflectionBloc bloc;
+
 
 
   String fullNames = "";
@@ -54,7 +53,6 @@ class _LandingPageState extends State<LandingPage> {
   @override
   void initState(){
     super.initState();
-    bloc = ReflectionBloc(_repository);
     _controller = PageController();
     //bloc.getReflectionList();
 
@@ -64,23 +62,18 @@ class _LandingPageState extends State<LandingPage> {
         fullNames;
         email;
       });
-      _refreshIndicatorKey.currentState.show();
     });
 
   }
 
-  Future<void> _refresh() async{
-    _initValues();
-    bloc.getReflectionList();
-    //return null;
-  }
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: _ScaffoldKey,
+      key: _scaffoldKey,
       backgroundColor: backgroundColor,
-      appBar: customAppBar(_ScaffoldKey),
+      appBar: customAppBar(_scaffoldKey),
       drawer: Theme(
         data: Theme.of(context).copyWith(canvasColor: Colors.transparent),
         child: Drawer(
@@ -98,7 +91,7 @@ class _LandingPageState extends State<LandingPage> {
                     SizedBox(
                       height: 20,
                     ),
-                    DrawerHeader(),
+                    DrawerHeader(email: email,name: fullNames,),
                     SizedBox(
                       height: 15,
                     ),
@@ -242,7 +235,6 @@ class _LandingPageState extends State<LandingPage> {
       ),
     );
 
-
   }
 
   AppBar customAppBar(GlobalKey<ScaffoldState> key) {
@@ -300,19 +292,50 @@ class _LandingPageState extends State<LandingPage> {
       ],
     );
   }
+
+
   void loginScreen(){
-    NavigatorHelper(_ScaffoldKey.currentState.context).showTopScreenPage(LoginPage.routeName, null);
+    NavigatorHelper(_scaffoldKey.currentState.context).showTopScreenPage(LoginPage.routeName, null);
   }
 }
 
-class ContentPage extends StatelessWidget {
-  const ContentPage({
-    Key key,
-  }) : super(key: key);
+
+
+class ContentPage extends StatefulWidget {
+  @override
+  _ContentPageState createState() => _ContentPageState();
+}
+
+class _ContentPageState extends State<ContentPage> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = GlobalKey<RefreshIndicatorState>();
+  final _repository = RepositoryProvider().provideRepository();
+  ReflectionBloc bloc;
+
+  @override
+  void initState() {
+    super.initState();
+    bloc = ReflectionBloc(_repository);
+    WidgetsBinding.instance
+        .addPostFrameCallback((_) {
+      _refreshIndicatorKey.currentState.show();
+    });
+  }
+
+  Future<void> _refresh() async{
+    bloc.getReflectionList();//return null;
+  }
+
+  @override
+  void dispose() {
+    bloc.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      key: _scaffoldKey,
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
       child: SingleChildScrollView(
@@ -320,17 +343,50 @@ class ContentPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             ReflectionHeader(),
-            Container(
-                height: 320,
+            StreamBuilder<List<Reflection>>(
+              stream: bloc.reflectionList,
+              builder: (context, AsyncSnapshot<List<Reflection>> reflectionListSnapshot) {
+                if (reflectionListSnapshot.hasData) {
+                  if(reflectionListSnapshot.data.length > 0)
+                    return _reflectionlistWidget(context, reflectionListSnapshot.data);
+                  else
+                    return  Container(margin: EdgeInsets.only(top: 30.0), child: Center(child: Text('Reflection List is empty'),),);
+                } else if (reflectionListSnapshot.hasError) {
+                  String errorMsg = reflectionListSnapshot.error.toString();
+                  //showToastError(errorMsg);
+                  return  Container(margin: EdgeInsets.only(top: 30.0), child: Center(child: Text('$errorMsg'),),);
+                } else {
+                  return Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: 300,
+                    child: Center(child: NavigatorHelper.loadingWaves(accentColor),)
+                  );
+                }
+              },
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 10),
+              child: Container(
                 width: MediaQuery.of(context).size.width,
-                child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: reflections.length,
-                    itemBuilder: (context, index) {
-                      return ReflectionCard(
-                        reflection: reflections[index],
-                      );
-                    })),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+                    CallToAction(
+                      title: "Call",
+                    ),
+                    CallToAction(
+                      title: "Follow-up",
+                    ),
+                    CallToAction(
+                      title: "Write",
+                    ),
+                    CallToAction(
+                      title: "Visit",
+                    )
+                  ],
+                ),
+              ),
+            ),
             Center(
               child: MaterialButton(
                 minWidth: MediaQuery.of(context).size.width * .95,
@@ -396,8 +452,24 @@ class ContentPage extends StatelessWidget {
         ),
       ),
     );
+
   }
+
+  _reflectionlistWidget(context, List<Reflection> reflectionList){
+    return Container(
+      height: 300,
+      width: MediaQuery.of(context).size.width,
+      child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemCount: reflectionList.length,
+          itemBuilder: (context, index){
+            return ReflectionCard(reflection: reflectionList[index],);
+          }),
+    );
+  }
+
 }
+
 
 class DrawerHeader extends StatelessWidget {
   final String name;

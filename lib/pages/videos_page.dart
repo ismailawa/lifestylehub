@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:life_style_hub/models/reflection.dart';
 import 'package:life_style_hub/values/colors.dart';
 import 'package:life_style_hub/widgets/media_card.dart';
 import 'package:video_player/video_player.dart';
@@ -80,41 +79,41 @@ class _VideosState extends State<Videos> {
             SizedBox(
               height: 10,
             ),
-            Expanded(
-              child: Container(
-                child: GridView.builder(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3,
-                      childAspectRatio: (0.8),
-                      crossAxisSpacing: 10,
-                      mainAxisSpacing: 10),
-                  itemBuilder: (context, index) {
-                    return InkWell(
-                      onTap: () {
-                        setState(() {
-                          _chewieController.dispose();
-                          _playerController.pause();
-                          _playerController.seekTo(Duration(seconds: 0));
-                          _playerController = VideoPlayerController.asset(
-                              reflections[index].videoUrl);
-                          _chewieController = ChewieController(
-                            videoPlayerController: _playerController,
-                            autoInitialize: true,
-                            aspectRatio: 3 / 2,
-                            looping: false,
-                            autoPlay: false,
-                          );
-                        });
-                      },
-                      child: MediaCard(
-                        reflection: reflections[index],
-                      ),
-                    );
-                  },
-                  itemCount: reflections.length,
-                ),
-              ),
-            )
+//            Expanded(
+//              child: Container(
+//                child: GridView.builder(
+//                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+//                      crossAxisCount: 3,
+//                      childAspectRatio: (0.8),
+//                      crossAxisSpacing: 10,
+//                      mainAxisSpacing: 10),
+//                  itemBuilder: (context, index) {
+//                    return InkWell(
+//                      onTap: () {
+//                        setState(() {
+//                          _chewieController.dispose();
+//                          _playerController.pause();
+//                          _playerController.seekTo(Duration(seconds: 0));
+//                          _playerController = VideoPlayerController.asset(
+//                              reflections[index].videoUrl);
+//                          _chewieController = ChewieController(
+//                            videoPlayerController: _playerController,
+//                            autoInitialize: true,
+//                            aspectRatio: 3 / 2,
+//                            looping: false,
+//                            autoPlay: false,
+//                          );
+//                        });
+//                      },
+//                      child: MediaCard(
+//                        reflection: reflections[index],
+//                      ),
+//                    );
+//                  },
+//                  itemCount: reflections.length,
+//                ),
+//              ),
+//            )
           ],
         ),
       ),

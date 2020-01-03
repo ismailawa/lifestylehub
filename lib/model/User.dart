@@ -49,3 +49,5 @@ Map<String, dynamic> _$UserToJson(User obj) => <String, dynamic>{
       KEY_EMAIL: obj.email,
       KEY_PASSWORD: obj.password,
     };
+
+
