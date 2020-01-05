@@ -39,6 +39,9 @@ dependencies:
   video_player:
   chewie:
   chewie_audio:
+  flutter_bloc: ^3.1.0
+  equatable: ^1.0.1
+  audio: ^0.0.5
 
 dev_dependencies:
   flutter_test:

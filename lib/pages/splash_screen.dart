@@ -13,7 +13,7 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  final repository = RepositoryProvider().provideRepository();
+  final repository = RepositoriesProvider().provideRepository();
 
   @override
   void initState() {

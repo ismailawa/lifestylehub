@@ -12,23 +12,20 @@ import 'package:life_style_hub/widgets/logo_widget.dart';
 class RegisterPage extends StatefulWidget {
   static const routeName = SCREEN_REGISTER;
 
-
-
   @override
   _RegisterPageState createState() => _RegisterPageState();
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-
   final _scaffoldKey = GlobalKey<ScaffoldState>();
-  final _repository = RepositoryProvider().provideRepository();
-
+  final _repository = RepositoriesProvider().provideRepository();
 
   final TextEditingController firstNameController = TextEditingController();
   final TextEditingController lastNameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController retypepasswordController = TextEditingController();
+  final TextEditingController retypepasswordController =
+      TextEditingController();
 
   ProgressDialog pd;
 
@@ -108,7 +105,6 @@ class _RegisterPageState extends State<RegisterPage> {
             ),
             Container(
               width: ScreenUtil.mediaQueryData.size.width,
-
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
@@ -117,18 +113,14 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                   Logo(),
                   Container(
-                    padding: EdgeInsets.symmetric(vertical: 15,horizontal: 15),
+                    padding: EdgeInsets.symmetric(vertical: 15, horizontal: 15),
                     height: ScreenUtil.mediaQueryData.size.height * 0.68,
                     width: ScreenUtil.mediaQueryData.size.width * 0.8,
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
-                        colors: [
-                          accentColor,
-                          accentColor
-                        ],
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter
-                      ),
+                          colors: [accentColor, accentColor],
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter),
                       borderRadius: BorderRadius.all(
                         Radius.circular(10),
                       ),
@@ -219,9 +211,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             ),
                           ),
                         ),
-                        Expanded(
-                            child: Container()
-                        ),
+                        Expanded(child: Container()),
                         Expanded(child: Container()),
                         MaterialButton(
                           onPressed: () async {
@@ -236,8 +226,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           height: ScreenUtil.getInstance().setHeight(20),
                         ),
                         InkWell(
-                          onTap: () =>
-                              forgotPasswordScreen(),
+                          onTap: () => forgotPasswordScreen(),
                           child: Row(
                             children: <Widget>[Text("Forgot Password?")],
                           ),
@@ -254,7 +243,7 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 
-  _onRegisterPressed() async{
+  _onRegisterPressed() async {
     String firstName = firstNameController.text;
     String lastName = lastNameController.text;
     String email = emailController.text;
@@ -303,19 +292,20 @@ class _RegisterPageState extends State<RegisterPage> {
     user.password = password;
     //user.role = role;
 
-    pd = NavigatorHelper(_scaffoldKey.currentState.context).createProgressDialog(message: TEXT_LOADING);
+    pd = NavigatorHelper(_scaffoldKey.currentState.context)
+        .createProgressDialog(message: TEXT_LOADING);
 //    print("${user.password}");
     pd.show();
     var response = await _repository.register(user);
 
     showToast(response.toJson().toString());
 
-    if(response.statusCode == 200){
-      if(response.statusCode != 200){
+    if (response.statusCode == 200) {
+      if (response.statusCode != 200) {
         //user already exists, save the email address and take him to the mainscreen
         pd.hide();
         showToast(response.message);
-      }else{
+      } else {
         pd.hide(); //user does not exist, send him an otp and take him to the otp page for verification of account
 //        await _repository.setLogin(true);
 //        await _repository.setName('$firstName $lastName');
@@ -323,26 +313,30 @@ class _RegisterPageState extends State<RegisterPage> {
         showToastSuccess("Your Registration was successful, Login to continue");
         loginScreen();
       }
-    }else{
+    } else {
       pd.hide();
       showToast(response.formattedErrMessage);
     }
   }
 
-  void reflectionScreen(){
-    NavigatorHelper(_scaffoldKey.currentState.context).showTopScreenPage(LandingPage.routeName, null);
+  void reflectionScreen() {
+    NavigatorHelper(_scaffoldKey.currentState.context)
+        .showTopScreenPage(LandingPage.routeName, null);
   }
 
-  void forgotPasswordScreen(){
-    NavigatorHelper(_scaffoldKey.currentState.context).showScreen(ForgetPasswordPage.routeName, null);
+  void forgotPasswordScreen() {
+    NavigatorHelper(_scaffoldKey.currentState.context)
+        .showScreen(ForgetPasswordPage.routeName, null);
   }
 
-  void loginScreen(){
-    NavigatorHelper(_scaffoldKey.currentState.context).showScreen(LoginPage.routeName, null);
+  void loginScreen() {
+    NavigatorHelper(_scaffoldKey.currentState.context)
+        .showScreen(LoginPage.routeName, null);
   }
 
-  showToast(String message){
-    NavigatorHelper(_scaffoldKey.currentState.context).showToast(_scaffoldKey, message);
+  showToast(String message) {
+    NavigatorHelper(_scaffoldKey.currentState.context)
+        .showToast(_scaffoldKey, message);
   }
 
   void showToastSuccess(String message) {
@@ -353,5 +347,4 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   bool isEmailValid(String email) => RegExp(REG_EXP_EMAIL).hasMatch(email);
-
 }

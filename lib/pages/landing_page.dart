@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:life_style_hub/bloc/Reflections.dart';
+import 'package:life_style_hub/bloc/bloc.dart';
 import 'package:life_style_hub/helpers/helper.dart';
 import 'package:life_style_hub/model/model.dart';
 import 'package:life_style_hub/models/category.dart';
@@ -10,6 +12,7 @@ import 'package:life_style_hub/pages/content_page.dart';
 import 'package:life_style_hub/pages/login_page.dart';
 import 'package:life_style_hub/pages/reflection_page.dart';
 import 'package:life_style_hub/providers/repository_provider.dart';
+import 'package:life_style_hub/utils/dateutils.dart';
 import 'package:life_style_hub/values/colors.dart';
 import 'package:life_style_hub/values/values.dart';
 import 'package:life_style_hub/widgets/category_card.dart';
@@ -23,20 +26,18 @@ class LandingPage extends StatefulWidget {
 
 class _LandingPageState extends State<LandingPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-  final _repository = RepositoryProvider().provideRepository();
-
-
+  final _repository = RepositoriesProvider().provideRepository();
 
   String fullNames = "";
   String email = "";
 
   PageController _controller;
 
-  _LandingPageState(){
+  _LandingPageState() {
     _initValues();
   }
 
-  _initValues() async{
+  _initValues() async {
     fullNames = await _repository.getName();
     email = await _repository.getEmail();
 
@@ -51,22 +52,18 @@ class _LandingPageState extends State<LandingPage> {
   ];
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
     _controller = PageController();
     //bloc.getReflectionList();
 
-    WidgetsBinding.instance
-        .addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       setState(() {
         fullNames;
         email;
       });
     });
-
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -91,7 +88,10 @@ class _LandingPageState extends State<LandingPage> {
                     SizedBox(
                       height: 20,
                     ),
-                    DrawerHeader(email: email,name: fullNames,),
+                    DrawerHeader(
+                      email: email,
+                      name: fullNames,
+                    ),
                     SizedBox(
                       height: 15,
                     ),
@@ -192,7 +192,7 @@ class _LandingPageState extends State<LandingPage> {
                     Padding(
                       padding: const EdgeInsets.only(top: 20),
                       child: MaterialButton(
-                        onPressed: ()  async {
+                        onPressed: () async {
                           await _repository.clear();
                           loginScreen();
                         },
@@ -212,7 +212,7 @@ class _LandingPageState extends State<LandingPage> {
                                   Text("Logout"),
                                   SizedBox(
                                     width: 10,
-                                   ),
+                                  ),
                                   Icon(Icons.exit_to_app)
                                 ],
                               ),
@@ -234,7 +234,6 @@ class _LandingPageState extends State<LandingPage> {
         children: pages,
       ),
     );
-
   }
 
   AppBar customAppBar(GlobalKey<ScaffoldState> key) {
@@ -293,13 +292,11 @@ class _LandingPageState extends State<LandingPage> {
     );
   }
 
-
-  void loginScreen(){
-    NavigatorHelper(_scaffoldKey.currentState.context).showTopScreenPage(LoginPage.routeName, null);
+  void loginScreen() {
+    NavigatorHelper(_scaffoldKey.currentState.context)
+        .showTopScreenPage(LoginPage.routeName, null);
   }
 }
-
-
 
 class ContentPage extends StatefulWidget {
   @override
@@ -308,22 +305,22 @@ class ContentPage extends StatefulWidget {
 
 class _ContentPageState extends State<ContentPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = GlobalKey<RefreshIndicatorState>();
-  final _repository = RepositoryProvider().provideRepository();
+  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
+      GlobalKey<RefreshIndicatorState>();
+  final _repository = RepositoriesProvider().provideRepository();
   ReflectionBloc bloc;
 
   @override
   void initState() {
     super.initState();
     bloc = ReflectionBloc(_repository);
-    WidgetsBinding.instance
-        .addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       _refreshIndicatorKey.currentState.show();
     });
   }
 
-  Future<void> _refresh() async{
-    bloc.getReflectionList();//return null;
+  Future<void> _refresh() async {
+    bloc.getReflectionList(); //return null;
   }
 
   @override
@@ -334,153 +331,158 @@ class _ContentPageState extends State<ContentPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      key: _scaffoldKey,
-      height: MediaQuery.of(context).size.height,
-      width: MediaQuery.of(context).size.width,
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            ReflectionHeader(),
-            StreamBuilder<List<Reflection>>(
-              stream: bloc.reflectionList,
-              builder: (context, AsyncSnapshot<List<Reflection>> reflectionListSnapshot) {
-                if (reflectionListSnapshot.hasData) {
-                  if(reflectionListSnapshot.data.length > 0)
-                    return _reflectionlistWidget(context, reflectionListSnapshot.data);
-                  else
-                    return  Container(margin: EdgeInsets.only(top: 30.0), child: Center(child: Text('Reflection List is empty'),),);
-                } else if (reflectionListSnapshot.hasError) {
-                  String errorMsg = reflectionListSnapshot.error.toString();
-                  //showToastError(errorMsg);
-                  return  Container(margin: EdgeInsets.only(top: 30.0), child: Center(child: Text('$errorMsg'),),);
-                } else {
-                  return Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: 300,
-                    child: Center(child: NavigatorHelper.loadingWaves(accentColor),)
-                  );
-                }
-              },
-            ),
-            Padding(
-              padding: EdgeInsets.only(top: 10),
-              child: Container(
+    return BlocProvider<ReflectionsBloc>(
+      create: (context) => ReflectionsBloc(repository: _repository),
+      lazy: false,
+      child: Container(
+        key: _scaffoldKey,
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              ReflectionHeader(),
+              BlocBuilder<ReflectionsBloc, ReflectionsState>(
+                builder: (context, state) {
+                  if (state is Empty) {
+                    BlocProvider.of<ReflectionsBloc>(context)
+                        .add(GetReflectionsEvent());
+                    return Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: 300,
+                    );
+                  } else if (state is Loading) {
+                    return Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: 300,
+                        child: Center(
+                          child: NavigatorHelper.loadingWaves(accentColor),
+                        ));
+                  } else if (state is Loaded) {
+                    return Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: 300,
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: state.reflections.length,
+                        itemBuilder: (context, index) {
+                          return ReflectionCard(
+                            reflection: state.reflections[index],
+                          );
+                        },
+                      ),
+                    );
+                  } else if (state is Error) {
+                    return Container(
+                      child: Center(
+                        child: Text("${state.message}"),
+                      ),
+                    );
+                  } else {
+                    return Container();
+                  }
+                },
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: 10),
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      CallToAction(
+                        title: "Call",
+                      ),
+                      CallToAction(
+                        title: "Follow-up",
+                      ),
+                      CallToAction(
+                        title: "Write",
+                      ),
+                      CallToAction(
+                        title: "Visit",
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              Center(
+                child: MaterialButton(
+                  minWidth: MediaQuery.of(context).size.width * .95,
+                  height: 40,
+                  onPressed: () {},
+                  child: RichText(
+                    text: TextSpan(children: [
+                      TextSpan(text: "View All "),
+                      TextSpan(
+                          text: "To-do List",
+                          style: TextStyle(fontWeight: FontWeight.bold))
+                    ], style: TextStyle(color: LSHBlackColor, fontSize: 18)),
+                  ),
+                  color: accentColor,
+                ),
+              ),
+              Container(
                 width: MediaQuery.of(context).size.width,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    CallToAction(
-                      title: "Call",
+                    Padding(
+                      padding: const EdgeInsets.all(12),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Text(
+                            "CATEGORIES",
+                            style:
+                                TextStyle(fontSize: 20, color: LSHBlackColor),
+                          ),
+                          Text(
+                            "View all",
+                            style:
+                                TextStyle(fontSize: 20, color: LSHBlackColor),
+                          ),
+                        ],
+                      ),
                     ),
-                    CallToAction(
-                      title: "Follow-up",
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: 200,
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: categories.length,
+                        itemBuilder: (context, index) {
+                          return InkWell(
+                            onTap: () {
+                              Navigator.of(context).pushNamed("cat-view");
+                            },
+                            child: CategoryCard(
+                              category: categories[index],
+                            ),
+                          );
+                        },
+                      ),
                     ),
-                    CallToAction(
-                      title: "Write",
-                    ),
-                    CallToAction(
-                      title: "Visit",
+                    SizedBox(
+                      height: 50,
                     )
                   ],
                 ),
-              ),
-            ),
-            Center(
-              child: MaterialButton(
-                minWidth: MediaQuery.of(context).size.width * .95,
-                height: 40,
-                onPressed: () {},
-                child: RichText(
-                  text: TextSpan(children: [
-                    TextSpan(text: "View All "),
-                    TextSpan(
-                        text: "To-do List",
-                        style: TextStyle(fontWeight: FontWeight.bold))
-                  ], style: TextStyle(color: LSHBlackColor, fontSize: 18)),
-                ),
-                color: accentColor,
-              ),
-            ),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(12),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Text(
-                          "CATEGORIES",
-                          style: TextStyle(fontSize: 20, color: LSHBlackColor),
-                        ),
-                        Text(
-                          "View all",
-                          style: TextStyle(fontSize: 20, color: LSHBlackColor),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: 200,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: categories.length,
-                      itemBuilder: (context, index) {
-                        return InkWell(
-                          onTap: (){
-                            Navigator.of(context).pushNamed("cat-view");
-                          },
-                          child: CategoryCard(
-                            category: categories[index],
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                  SizedBox(
-                    height: 50,
-                  )
-                ],
-              ),
-            )
-          ],
+              )
+            ],
+          ),
         ),
       ),
     );
-
   }
-
-  _reflectionlistWidget(context, List<Reflection> reflectionList){
-    return Container(
-      height: 300,
-      width: MediaQuery.of(context).size.width,
-      child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemCount: reflectionList.length,
-          itemBuilder: (context, index){
-            return ReflectionCard(reflection: reflectionList[index],);
-          }),
-    );
-  }
-
 }
-
 
 class DrawerHeader extends StatelessWidget {
   final String name;
   final String email;
 
-  const DrawerHeader({
-    Key key,
-    this.name,
-    this.email
-  })
- : super(key: key);
+  const DrawerHeader({Key key, this.name, this.email}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

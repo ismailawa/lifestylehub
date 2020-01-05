@@ -2,20 +2,22 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:life_style_hub/model/model.dart';
+import 'package:life_style_hub/providers/end_points.dart';
 import 'package:life_style_hub/utils/dateutils.dart';
 import 'package:life_style_hub/values/values.dart';
-
+import 'package:life_style_hub/widgets/audio_player.dart';
 
 class ReflectionCard extends StatelessWidget {
   final Reflection reflection;
   const ReflectionCard({
-    Key key, this.reflection,
+    Key key,
+    this.reflection,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    print(reflection.audioLink);
     return Padding(
-
       padding: const EdgeInsets.all(8.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -35,8 +37,10 @@ class ReflectionCard extends StatelessWidget {
                         flex: 3,
                         child: Container(
                           decoration: BoxDecoration(
-                            image: DecorationImage(image: NetworkImage("http://myacademyhub.s3.amazonaws.com/images/${reflection.imageLink}"),fit: BoxFit.cover)
-                          ),
+                              image: DecorationImage(
+                                  image: NetworkImage(
+                                      "http://myacademyhub.s3.amazonaws.com/images/${reflection.imageLink}"),
+                                  fit: BoxFit.cover)),
                         ),
                       ),
                       Flexible(
@@ -75,7 +79,17 @@ class ReflectionCard extends StatelessWidget {
                   bottom: 10,
                   left: 30,
                   child: MaterialButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      showModalBottomSheet(
+                          backgroundColor: Colors.transparent,
+                          context: context,
+                          builder: (context) {
+                            print(ENDPOINT_AUDIO + reflection.audioLink);
+                            return AudioPlayer(
+                              url: ENDPOINT_AUDIO + reflection.audioLink,
+                            );
+                          });
+                    },
                     color: accentColor,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
@@ -90,18 +104,31 @@ class ReflectionCard extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 10,),
+            padding: const EdgeInsets.only(
+              top: 10,
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Padding(
-                  padding:  EdgeInsets.only(left: 10),
+                  padding: EdgeInsets.only(left: 10),
                   child: RichText(
-                    text: TextSpan(children: [
-                      TextSpan(text: "REFLECTION: ", style: TextStyle(color: LSHBlackColor)),
-                      TextSpan(
-                          text: " ${reflection.title.substring(0, 20)}...", style: TextStyle(color: accentColor))
-                    ], style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                    text: TextSpan(
+                        children: [
+                          TextSpan(
+                              text: "REFLECTION: ",
+                              style: TextStyle(color: LSHBlackColor)),
+                          TextSpan(
+                              text: reflection.title.length > 20
+                                  ? " ${reflection.title.substring(0, 20)}...."
+                                  : " ${reflection.title}",
+                              style: TextStyle(
+                                color: accentColor,
+                                fontSize: 18,
+                              ))
+                        ],
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold)),
                   ),
                 ),
                 SizedBox(
@@ -109,14 +136,15 @@ class ReflectionCard extends StatelessWidget {
                 ),
                 Padding(
                   padding: EdgeInsets.only(left: 10),
-                  child: Text(DateAndTimeUtil.dayMonthYearFormat('${reflection.createdAt}'),
+                  child: Text(
+                    DateAndTimeUtil.dayMonthYearFormat(
+                        '${reflection.createdAt}'),
                     style: TextStyle(letterSpacing: 2, color: LSHBlackColor),
                   ),
                 ),
               ],
             ),
           ),
-
         ],
       ),
     );
@@ -125,8 +153,11 @@ class ReflectionCard extends StatelessWidget {
 
 class CallToAction extends StatelessWidget {
   final String title;
+  final IconData icon;
   const CallToAction({
-    Key key, this.title,
+    Key key,
+    this.title,
+    this.icon,
   }) : super(key: key);
 
   @override
@@ -137,15 +168,21 @@ class CallToAction extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Text("To", style: TextStyle(color: LSHBlackColor),),
-          Text(title, style: TextStyle(color: LSHBlackColor, fontWeight: FontWeight.bold),),
+          Text(
+            "To",
+            style: TextStyle(color: LSHBlackColor),
+          ),
+          Text(
+            title,
+            style: TextStyle(color: LSHBlackColor, fontWeight: FontWeight.bold),
+          ),
         ],
       ),
       decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border.all(color: LSHBlackColor, width: 1, style: BorderStyle.solid),
-        borderRadius: BorderRadius.circular(10)
-      ),
+          color: Colors.white,
+          border: Border.all(
+              color: LSHBlackColor, width: 1, style: BorderStyle.solid),
+          borderRadius: BorderRadius.circular(10)),
     );
   }
 }

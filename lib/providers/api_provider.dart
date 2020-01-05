@@ -8,6 +8,7 @@ import 'dart:convert';
 import 'package:life_style_hub/responses/responses.dart';
 
 class ApiProvider {
+  SessionManager sess = SessionManager();
   Future<DefaultResponse> login(String email, String password) async {
     var requestBody = <String, dynamic>{
       KEY_EMAIL:
@@ -24,6 +25,9 @@ class ApiProvider {
       if (_isConnectionSuccessful(statusCode)) {
         var decodedBody = jsonDecode(response.body);
         var apiResponse = DefaultResponse.fromJson(decodedBody);
+
+        sess.setToken(apiResponse.token);
+
         apiResponse.statusCode = statusCode;
         return apiResponse;
       } else {
@@ -49,7 +53,7 @@ class ApiProvider {
       http.Response response =
           await doPostRequest(ENDPOINT_REGISTER, requestBody);
       statusCode = response.statusCode;
-          print(statusCode);
+      print(statusCode);
       if (_isConnectionSuccessful(statusCode)) {
         var decodedBody = jsonDecode(response.body);
         var apiResponse = DefaultResponse.fromJson(decodedBody);
